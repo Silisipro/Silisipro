@@ -1,0 +1,56 @@
+name: Deploy Laravel & ReactJS App
+
+on:
+  push:
+    branches:
+      - main
+      - staging
+  pull_request:
+    branches:
+      - staging
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      - name: Log in to Docker Hub
+        run: echo "${{ secrets.DOCKER_HUB_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_HUB_USERNAME }}" --password-stdin
+
+      - name: Build and push Laravel image
+        run: |
+          docker build ./dashbord_api -t ${{ secrets.DOCKER_HUB_USERNAME }}/laravel-app:${{ github.ref_name }}
+          docker push ${{ secrets.DOCKER_HUB_USERNAME }}/laravel-app:${{ github.ref_name }}
+
+      - name: Build and push React image
+        run: |
+          docker build ./frontenddashboard -t ${{ secrets.DOCKER_HUB_USERNAME }}/react-app:${{ github.ref_name }}
+          docker push ${{ secrets.DOCKER_HUB_USERNAME }}/react-app:${{ github.ref_name }}
+
+      # - name: Deploy to server
+      #   if: github.ref == 'refs/heads/main'
+      #   uses: appleboy/ssh-action@master
+      #   with:
+      #     host: ${{ secrets.PROD_SERVER_HOST }}
+      #     username: ${{ secrets.PROD_SERVER_USER }}
+      #     key: ${{ secrets.SSH_PRIVATE_KEY }}
+      #     script: |
+      #       docker-compose -f docker-compose.prod.yml pull
+      #       docker-compose -f docker-compose.prod.yml up -d
+
+      # - name: Deploy to staging server
+      #   if: github.ref == 'refs/heads/staging'
+      #   uses: appleboy/ssh-action@mastera
+      #   with:
+      #     host: ${{ secrets.STAGING_SERVER_HOST }}
+      #     username: ${{ secrets.STAGING_SERVER_USER }}
+      #     key: ${{ secrets.SSH_PRIVATE_KEY }}
+      #     script: |
+      #       docker-compose -f docker-compose.staging.yml pull
+      #       docker-compose -f docker-compose.staging.yml up -d
