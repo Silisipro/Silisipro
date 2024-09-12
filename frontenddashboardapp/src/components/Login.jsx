@@ -1,5 +1,7 @@
 import React from "react";
-import { AiFillGoogleCircle } from "react-icons/ai"; // Import de l'icône
+import { AiFillGoogleCircle } from "react-icons/ai"; 
+import { Link } from 'react-router-dom'
+// Import de l'icône
 
 const LoginForm = () => {
   const handleGoogleSignIn = () => {
@@ -58,7 +60,7 @@ const LoginForm = () => {
         </div>
         <div className="mt-6 text-center">
           <p className="text-sm">
-          You do not have an account ? <a href="" className="text-indigo-600 hover:underline">sign up</a>
+          You do not have an account ? <Link to="/register" className="text-indigo-600 hover:underline">sign up</Link>
           </p>
         </div>
       </div>
