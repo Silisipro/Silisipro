@@ -24,7 +24,7 @@ const DateComponent = () => {
   };
 
   return (
-    <div className='w-1/2 mt-20 ml-5 border border-gray-500 first-letter  shadow-lg shadow-cyan-500/50' >
+    <div className='w-1/2 mt-20 ml-5 first-letter  ' >
       <h2>Date actuelle : {formatDate(currentDate)}</h2>
       <h3>Heure actuelle : {formatTime(currentDate)}</h3>
     </div>
