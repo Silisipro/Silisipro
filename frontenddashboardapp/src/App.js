@@ -1,16 +1,26 @@
 import Navbar from './components/Navbar';
 import WeatherWidget from './components/WeatherWidget';
 import DateWidget from './components/DateWidget';
-
+import ExchangeRateWidget from './components/ExchangeRateWidget'
+import Register from './components/Register'
+import Login from './components/Login'
 
 export default function App() {
     return (
-      <h1 className="text-3xl font-bold underline ">
-            <Navbar/>
-            <WeatherWidget/>
-            <DateWidget/>
+      // <h1 className="text-3xl font-bold underline ">
+      //       <Navbar/>
+      //       <WeatherWidget/>
+      //       {/* <ExchangeRateWidget /> */}
+      //       <DateWidget/>
             
-      </h1>
+      // </h1>
+
+      <>
+        <Navbar/>
+        <Register />
+        <Login />
+      </>
+
     )
   }
 // import Registerform from './components/Registerform';
