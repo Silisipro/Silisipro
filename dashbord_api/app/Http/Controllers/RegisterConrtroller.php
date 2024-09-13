@@ -9,6 +9,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Models\Role;
+use App\Notifications\WelcomeEmail;
+use Illuminate\Support\Facades\Notification;
 
 class RegisterConrtroller extends Controller
 {
@@ -16,17 +18,17 @@ class RegisterConrtroller extends Controller
     {
         try
         {
-            // $request->validate([
-            //     'name' => 'required',
-            //     'email' => 'required',
-            //     'password' => 'required',
-            // ]);
+            $request->validate([
+                'name' => 'required',
+                'email' => 'required',
+                'password' => 'required',
+            ]);
             $role = 'user';
 
             if(Role::whereName($role)->first()->is_deleted == true){
                 return (new ServiceController())->apiResponse(404,[],"This role is deleted");
     
-                }
+            }
 
             $user = new User();
             $user->name = $request->name;
@@ -34,11 +36,11 @@ class RegisterConrtroller extends Controller
             $user->password =  Hash::make($request->password);
             $user->save();
             
-            $user->assignRole($role);
-
-            
             // assign role to user
-            
+            $user->assignRole($role);
+            Notification::send($user, new WelcomeEmail($user));
+
+
             return (new ServiceController())->apiResponse(200,$user,"User created successfully!");
 
         }

@@ -12,10 +12,10 @@ const Navbar = () => {
         
         {/* Boutons Sign Up et Sign In */}
         <div className="space-x-4">
-          <Link to="/register" className="text-white bg-blue-500 hover:bg-blue-700 px-4 py-2 rounded">
+          <Link to="/auth/register" className="text-white bg-blue-500 hover:bg-blue-700 px-4 py-2 rounded">
             Sign Up
           </Link>
-          <Link to="/login" className="text-white bg-blue-500 hover:bg-blue-700 px-4 py-2 rounded">
+          <Link to="/auth/login" className="text-white bg-blue-500 hover:bg-blue-700 px-4 py-2 rounded">
             Sign In
           </Link>
         </div>
