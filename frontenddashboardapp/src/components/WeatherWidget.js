@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
 
-const WeatherWidget = () => {
+const WeatherWidget = ({ center, larg, marge,flex, total}) => {
   const [weather, setWeather] = useState(null);
   const [city, setCity] = useState("Benin"); // Ville par défaut
   const [error, setError] = useState("");
@@ -29,17 +29,17 @@ const WeatherWidget = () => {
 
   return (
     <div className="weather-widget p-6 border border-gray-300 rounded-lg bg-white shadow-lg">
-      <h2 className="text-2xl font-bold mb-4">Météo Actuelle</h2>
-        <div className="flex mb-6">
+      <h2 className={`text-2xl font-bold mb-4 ${center ? 'centre' : ''}`}>Météo Actuelle</h2>
+        <div className={`flex mb-6 ${larg ? 'larg' : ''}`}>
           <input
-            className="w-40 h-10 border-2 border-gray-300 rounded-l-md mt-5 text-gray-700 focus:outline-none focus:border-blue-500"
+            className={`w-40 border-2 border-gray-300 rounded-l-md  text-gray-700 focus:outline-none focus:border-blue-500 ${total ? 'total': ''}`}
             type="text"
             value={city}
             onChange={handleCityChange}
             placeholder="Ville"
           />
           <button
-            className="bg-blue-500 text-white border-2 border-blue-500 rounded-r-md py-2 ml-2 hover:bg-blue-700 hover:border-blue-700 transition-colors"
+            className={`bg-blue-500 text-white border-2 border-blue-500 rounded-r-md py-2 ml-2 hover:bg-blue-700 hover:border-blue-700 transition-colors ${marge ? 'marge': ''}`}
             onClick={() => fetchWeatherData(city)}
           >
             Rechercher

@@ -36,12 +36,50 @@ export const protectedRoutes = [
     },
     {
         key: 'dashboard.youtube',
-        path: `/dashboard/dashboard/youtube_service`,
+        path: `/dashboard/dashboard/youtube`,
         component: React.lazy(() => import('../pages/dashboard/youtube/index')),
     },
     {
         key: 'dashboard.meteo',
         path: `/dashboard/dashboard/weather`,
         component: React.lazy(() => import('../pages/dashboard/meteo/index')),
+    },
+
+    {
+        key: 'dashboard.exchange',
+        path: `/dashboard/dashboard/rate`,
+        component: React.lazy(() => import('../pages/dashboard/exchange/index')),
+    },
+
+    {
+        key: 'dashboard.favorite',
+        path: `/dashboard/dashboard/favorite_team`,
+        component: React.lazy(() => import('../pages/dashboard/favoriteTeam/index')),
+    },
+    {
+        key: 'dashboard.atronomie',
+        path: `/dashboard/dashboard/atronomie`,
+        component: React.lazy(() => import('../pages/dashboard/astronomie/index')),
+    },
+    {
+        key: 'dashboard.space',
+        path: `/dashboard/dashboard/space`,
+        component: React.lazy(() => import('../pages/dashboard/astronomie/indexSpace')),
+    },
+    {
+        key: 'dashboard.google_drive',
+        path: `/dashboard/dashboard/google_drive`,
+        component: React.lazy(() => import('../pages/dashboard/driver/index')),
+    },
+
+    {
+        key: 'dashboard.calendar',
+        path: `/dashboard/dashboard/calendar`,
+        component: React.lazy(() => import('../pages/dashboard/calendar/index')),
+    },
+    {
+        key: 'dashboard.calendar',
+        path: `/dashboard/dashboard/:playlistId`,
+        component: React.lazy(() => import('../pages/dashboard/youtube/PlaylistVideos')),
     },
 ]

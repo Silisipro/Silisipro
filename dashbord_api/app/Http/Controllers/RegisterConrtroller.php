@@ -71,9 +71,9 @@ class RegisterConrtroller extends Controller
             $user->password =  trim(Hash::make($request->password));
             $user->save();
 
-            $link = '';
+            $link = url('/api/activeCompte/'. $user->email);
 
-            $body = 'Activate your account by clicking on this link'.$link;
+            $body = "Activate your account by clicking on this link $link";
 
             $mail = [
                 'title' => 'Account activation link',
@@ -90,5 +90,7 @@ class RegisterConrtroller extends Controller
             return (new ServiceController())->apiResponse(500,[],$e->getMessage());
         }
         }
+
+    }
 
     }

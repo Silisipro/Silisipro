@@ -22,3 +22,5 @@ Route::post('login/google/{email}/{name}', [LoginController::class, 'handleGoogl
 Route::post('login', [LoginController::class, 'login']);
 Route::get('activeCompte/{email}', [LoginController::class, 'activeCompte']);
 Route::post('logout', [LogoutController::class, 'logout'])->middleware('auth:sanctum');
+
+
