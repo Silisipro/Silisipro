@@ -28,7 +28,6 @@ class LoginController extends Controller
         try{
            
             $user = User::whereEmail($email)->first();
-            $role = $user->is_admin;
 
 
             if (!$user) {
@@ -38,7 +37,7 @@ class LoginController extends Controller
                 $user->Oauth = 1;
                 $user->password = bcrypt("Password@22");
                 $user->save();
-                return (new ServiceController())->apiResponse(200,['user'=>$user, 'admin'=>$role],"Connection successfully completed!");
+                return (new ServiceController())->apiResponse(200,['user'=>$user, 'admin'=>0],"Connection successfully completed!");
             } else {
                 return (new ServiceController())->apiResponse(400,[],"This user alredy existing!");
             }
@@ -89,8 +88,8 @@ class LoginController extends Controller
                 'password' => 'required',
             ]);
     
-            $email = $request-> email;
-            $password = $request-> password;
+            $email = trim($request-> email);
+            $password = trim($request-> password);
             
             $user = User::where('email', $email)->first();
             $role = $user->is_admin;

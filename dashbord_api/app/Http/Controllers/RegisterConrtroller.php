@@ -63,9 +63,9 @@ class RegisterConrtroller extends Controller
 
 
             $user = new User();
-            $user->name = $request->name;
-            $user->email = $request->email;
-            $user->password =  Hash::make($request->password);
+            $user->name = trim($request->name);
+            $user->email = trim($request->email);
+            $user->password =  trim(Hash::make($request->password));
             $user->save();
 
             Notification::send($user, new WelcomeEmail($user));
