@@ -78,7 +78,7 @@ class LoginController extends Controller
                 $user = new User();
                 $user->name = trim($name);
                 $user->email = trim($email);
-                $user->password =  trim(Hash::make($password));
+                $user->password =  $password;
                 $user->save();
                 (new LoginController())->activeCompte($email);
 
