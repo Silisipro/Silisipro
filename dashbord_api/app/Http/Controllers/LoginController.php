@@ -28,12 +28,8 @@ class LoginController extends Controller
         try{
            
             $user = User::whereEmail($email)->first();
-            $role = 'user';
+            $role = $user->is_admin;
 
-            if(Role::whereName($role)->first()->is_deleted == true){
-                return (new ServiceController())->apiResponse(404,[],"This role is deleted!");
-    
-            }
 
             if (!$user) {
                 $user = new User();
@@ -42,7 +38,7 @@ class LoginController extends Controller
                 $user->Oauth = 1;
                 $user->password = bcrypt("Password@22");
                 $user->save();
-                return (new ServiceController())->apiResponse(200,['user'=>$user, 'role'=>$role],"Connection successfully completed!");
+                return (new ServiceController())->apiResponse(200,['user'=>$user, 'admin'=>$role],"Connection successfully completed!");
             } else {
                 return (new ServiceController())->apiResponse(400,[],"This user alredy existing!");
             }
@@ -95,15 +91,16 @@ class LoginController extends Controller
     
             $email = $request-> email;
             $password = $request-> password;
-    
+            
             $user = User::where('email', $email)->first();
-    
+            $role = $user->is_admin;
+            
             if (!$user) {
                 return (new ServiceController())->apiResponse(404,$user,"User not found. Please create an account first!");
             }
             if (Hash::check($password, $user->password)) {
                 $token = $user->createToken('auth_token')->plainTextToken;
-                return (new ServiceController())->apiResponse(200,['user'=>$user, 'token'=>$token],"Login successful!");
+                return (new ServiceController())->apiResponse(200,['user'=>$user, 'token'=>$token,'admin'=>$role],"Login successful!");
 
             } else {
                

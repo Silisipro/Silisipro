@@ -56,10 +56,9 @@ class RegisterConrtroller extends Controller
         try
         {
             $request->validate([
-                'name' => 'required|min:3|regex:/^\S.*\S$/',
-                'email' => 'required|email|unique:users',
-                'password' => 'required|regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&]).{8,}$/',
-                'password_confirm' => 'required',
+                'name' => 'required',
+                'email' => 'required',
+                'password' => 'required',
             ]);
 
 
@@ -68,8 +67,7 @@ class RegisterConrtroller extends Controller
             $user->email = $request->email;
             $user->password =  Hash::make($request->password);
             $user->save();
-            
-            // assign role to user
+
             Notification::send($user, new WelcomeEmail($user));
 
 
