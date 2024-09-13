@@ -1,20 +1,41 @@
+import React, { useState, useEffect } from 'react';
 import { iconsImgs } from "../../utils/images";
 import "./Cards.css";
 
 const Cards = () => {
+
+
+    const [currentDate, setCurrentDate] = useState(new Date());
+
+    useEffect(() => {
+      const timerId = setInterval(() => {
+        setCurrentDate(new Date());
+      }, 1000);
+       // Met à jour chaque seconde
+  
+      // Nettoie l'intervalle lorsque le composant est démonté
+      return () => clearInterval(timerId);
+    }, []);
+  
+    // Formater la date
+    const formatDate = (date) => {
+      const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+      return date.toLocaleDateString('fr-FR', options);
+    };
+  
+    const formatTime = (date) => {
+      return date.toLocaleTimeString('fr-FR');
+    };
   return (
     <div className="grid-one-item grid-common grid-c1">
         <div className="grid-c-title">
             <h3 className="grid-c-title-text">Date :</h3>
-            <h3 className="grid-c-title-text">Cards</h3>
-            <button className="grid-c-title-icon">
-                <img src={ iconsImgs.plus } />
-            </button>
+            <h3 className="grid-c-title-text">{formatDate(currentDate)}</h3>
         </div>
 
         <div className="grid-c-title">
             <h3 className="grid-c-title-text">Heure :</h3>
-            <h3 className="grid-c-title-text">Cards</h3>
+            <h3 className="grid-c-title-text">{formatTime(currentDate)}</h3>
             
         </div>
         

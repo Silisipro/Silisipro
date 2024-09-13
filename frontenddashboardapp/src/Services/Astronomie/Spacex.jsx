@@ -22,14 +22,14 @@ const SpaceXLaunches = () => {
     }, []);
 
     return (
-        <div className="absolute top-2 left-2 lg:w-1/4 h-1/2 bg-white shadow-md rounded-lg overflow-hidden">
-            <div className="p-4 h-full flex flex-col bg-white bg-opacity-80">
+        <div className="top-2 left-2  bg-white shadow-md rounded-lg overflow-hidden">
+            <div className="p-4 h-[600px] flex flex-col bg-white bg-opacity-80">
                 <h2 className="text-2xl font-semibold mb-4">SpaceX Launches</h2>
                 {error && <p className="text-red-500 mb-4">{error}</p>}
                 {loading ? (
                     <p>Loading...</p>
                 ) : launches.length > 0 ? (
-                    <div className="overflow-y-auto flex-1 max-h-64">
+                    <div className="overflow-y-auto flex-1">
                         <table className="table-auto w-full border-collapse border border-gray-400">
                             <thead>
                                 <tr className="bg-gray-100">

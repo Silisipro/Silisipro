@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 
-const NasaNeoWidget = () => {
+const DriverWidget = () => {
     const [data, setData] = useState(null);
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(true);
@@ -30,7 +30,7 @@ const NasaNeoWidget = () => {
     return (
         <div className="top-2 left-2 bg-white shadow-md rounded-lg overflow-hidden">
             <div className="p-4 h-[600px] flex flex-col bg-white bg-opacity-80">
-                <h2 className="text-2xl font-semibold mb-4">NASA NEO Data</h2>
+                <h2 className="text-2xl font-semibold mb-4">Driver filles</h2>
                 {error && <p className="text-red-500 mb-4">{error}</p>}
                 {loading ? (
                     <p>Loading...</p>
@@ -82,4 +82,4 @@ const NasaNeoWidget = () => {
         </div>
     );
 };
-export default NasaNeoWidget;
+export default DriverWidget;
