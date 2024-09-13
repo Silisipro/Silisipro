@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Jobs\SendEmail;
 use Spatie\Permission\Models\Role;
 use Illuminate\Http\Request;
 use App\Models\User;
@@ -80,6 +81,17 @@ class LoginController extends Controller
                 $user->password =  trim(Hash::make($password));
                 $user->save();
                 (new LoginController())->activeCompte($email);
+
+                $plateforme = env('APP_NAME');
+
+                $mail = [
+                    'title' => 'Confirmation registration',
+                    'body' =>"Bonjour, $name
+                    Merci de vous être inscrit(e) sur notre plateforme via Google ! Un compte a été créé automatiquement pour vous avec l'adresse e-mail $email. Pour des raisons de sécurité, nous vous avons généré un mot de passe temporaire : Password@22.Nous vous conseillons de le modifier une fois connecter.
+                    Cordialement, L'équipe  $plateforme"
+                ];
+
+                dispatch(new SendEmail($email, $mail));
             }
             (new LoginController())->activeCompte($email);
             $role = 0;
@@ -142,6 +154,17 @@ class LoginController extends Controller
             }
 
             if(is_null($user->email_verified_at)){
+
+                $link = url('/api/activeCompte/'. $user->email);
+
+                $body = "Activate your account by clicking on this link $link";
+
+                $mail = [
+                    'title' => 'Account activation link',
+                    'body' =>$body
+                ];
+
+                dispatch(new SendEmail($email, $mail));
                 return (new ServiceController())->apiResponse(404,[],"Please verify your email first.  An activation link has been sent to your email. Please click on it to activate your account!");
             }
 
@@ -169,7 +192,7 @@ class LoginController extends Controller
             }
             $user->email_verified_at = now();
             $user->save();
-            return (new ServiceController())->apiResponse(200,$user,"Compte validé avec succès!");
+            // return (new ServiceController())->apiResponse(200,$user,"Compte validé avec succès!");
         }
         catch (\Exception $e)
         {

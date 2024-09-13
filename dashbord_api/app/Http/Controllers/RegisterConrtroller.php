@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\RegisterRequest;
+use App\Jobs\SendEmail;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -12,7 +13,6 @@ use Spatie\Permission\Models\Role;
 use App\Notifications\WelcomeEmail;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Mail;
-use App\Mail\SendMail;
 
 class RegisterConrtroller extends Controller
 {
@@ -71,16 +71,16 @@ class RegisterConrtroller extends Controller
             $user->password =  trim(Hash::make($request->password));
             $user->save();
 
-            $link = '';
+            $link = url('/api/activeCompte/'. $user->email);
 
-            $body = 'Activate your account by clicking on this link'.$link;
+            $body = "Activate your account by clicking on this link $link";
 
             $mail = [
                 'title' => 'Account activation link',
                 'body' =>$body
                ];
 
-            (new MailController())->sendEmail($request->email,$mail);
+               dispatch(new SendEmail($request->email, $mail));
 
             return (new ServiceController())->apiResponse(200,User::whereEmail($request->email)->first(),"Account created successfully. An activation link has been sent to your email. Please click on it to activate your account!");
 
