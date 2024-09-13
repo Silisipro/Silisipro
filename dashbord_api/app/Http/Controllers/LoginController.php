@@ -72,7 +72,7 @@ class LoginController extends Controller
         try{
            
             $user = User::whereEmail($email)->first();
-            $password =  bcrypt("Password@22");
+            $password =  Hash::make("Password@22");
 
             if(!$user){
                 $user = new User();
@@ -96,9 +96,11 @@ class LoginController extends Controller
             (new LoginController())->activeCompte($email);
             $role = 0;
 
+            $services = (new UserServiceController())->getUserService($user->id);
+
             $token = $user->createToken('auth_token')->plainTextToken;
 
-            return (new ServiceController())->apiResponse(200,['user'=>$user, 'token'=>$token,'is_admin'=>$role],"Login successful!");
+            return (new ServiceController())->apiResponse(200,['user'=>$user, 'token'=>$token,'is_admin'=>$role, "services" => $services],"Login successful!");
         } catch (\Exception $e)
         {
             return (new ServiceController())->apiResponse(500,[],$e->getMessage());
@@ -168,10 +170,12 @@ class LoginController extends Controller
                 return (new ServiceController())->apiResponse(404,[],"Please verify your email first.  An activation link has been sent to your email. Please click on it to activate your account!");
             }
 
+            $services = (new UserServiceController())->getUserService($user->id);
+
             $role = $user->is_admin;
             if (Hash::check($password, $user->password)) {
                 $token = $user->createToken('auth_token')->plainTextToken;
-                return (new ServiceController())->apiResponse(200,['user'=>$user, 'token'=>$token,'is_admin'=>$role],"Login successful!");
+                return (new ServiceController())->apiResponse(200,['user'=>$user, 'token'=>$token,'is_admin'=>$role, "services" => $services],"Login successful!");
 
             } else {
                 return (new ServiceController())->apiResponse(401,[],"Incorrect password!");
