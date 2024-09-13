@@ -60,7 +60,7 @@ const LoginForm = () => {
         </div>
         <div className="mt-6 text-center">
           <p className="text-sm">
-          You do not have an account ? <Link to="/register" className="text-indigo-600 hover:underline">sign up</Link>
+          You do not have an account ? <Link to="/auth/register" className="text-indigo-600 hover:underline">sign up</Link>
           </p>
         </div>
       </div>

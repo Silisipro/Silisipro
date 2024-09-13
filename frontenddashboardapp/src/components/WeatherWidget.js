@@ -32,7 +32,7 @@ const WeatherWidget = () => {
       <h2 className="text-2xl font-bold mb-4">Météo Actuelle</h2>
         <div className="flex mb-6">
           <input
-            className="w-40 border-2 border-gray-300 rounded-l-md  text-gray-700 focus:outline-none focus:border-blue-500"
+            className="w-40 h-10 border-2 border-gray-300 rounded-l-md mt-5 text-gray-700 focus:outline-none focus:border-blue-500"
             type="text"
             value={city}
             onChange={handleCityChange}
