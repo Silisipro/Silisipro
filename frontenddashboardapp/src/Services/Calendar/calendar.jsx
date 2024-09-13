@@ -1,27 +1,41 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import EventModal from '../../components/calendar/addEventModal';
-import { createEvent, listEvents } from '../../store/serviceSlice/servicegoogleSlice'; 
+import DetailModal from '../../components/calendar/detailModal';
+import {  listEvents } from '../../store/serviceSlice/servicegoogleSlice'; 
 
 const CalendarComponent = () => {
     const dispatch = useDispatch();
 
     const [showModal, setShowModal] = useState(false);
 
+    const [isModalOpen, setModalOpen] = useState(false);
+  const [selectedEvent, setSelectedEvent] = useState(null);
+
+  const ShowDetail = (event) => {
+    setSelectedEvent(event);
+    setModalOpen(true);
+  };
+
+  const closeDetailModal = () => {
+    setModalOpen(false);
+    setSelectedEvent(null);
+  };
+
      const handleOpenModal = () => setShowModal(true);
      const handleCloseModal = () => setShowModal(false);
 
-    const { events, event, loading, error } = useSelector((state) => state.servicegoogle);
+    const { events, event, loading, error, status } = useSelector((state) => state.servicegoogle);
 
 
     function formatDate(dateString) {
         if (!dateString) {
-            return "";
+            return "Not defined";
         }
         const date = new Date(dateString);
         
         if (isNaN(date.getTime())) {
-            return "Date non valide";
+            return "Not defined";
         }
     
         const formattedDateTime = date.toLocaleString('fr-FR', {
@@ -37,12 +51,17 @@ const CalendarComponent = () => {
 
 
     useEffect(() => {
-            dispatch(listEvents({ maxResults: 10 }));
+        if(status ==="idle") {
+            dispatch(listEvents({ maxResults: 100 }));
+        }
     }, [dispatch]);
 
     return (
         <div>
              <EventModal showModal={showModal} handleClose={handleCloseModal} />
+            {selectedEvent && (
+                 <DetailModal isOpen={isModalOpen} onClose={closeDetailModal} event={selectedEvent} />
+            )}
 
             <div className="top-2 left-2 bg-white shadow-md rounded-lg overflow-hidden">
                 <div className="p-4 h-[600px] flex flex-col bg-white bg-opacity-80">
@@ -92,7 +111,7 @@ const CalendarComponent = () => {
                                                                 <td className="border border-gray-300 px-4 py-2">{formatDate(event.created) }</td>
                                                                 <td className="border border-gray-300 px-4 py-2">
                                                                     <button
-                                                                        onClick={handleOpenModal}
+                                                                        onClick={() => ShowDetail(event)}
                                                                         className="bg-blue-600 hover:bg-blue-800 text-white font-bold py-2 px-4 rounded transition duration-300"
                                                                         >
                                                                         View

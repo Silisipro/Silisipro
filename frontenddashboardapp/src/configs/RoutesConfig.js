@@ -36,7 +36,7 @@ export const protectedRoutes = [
     },
     {
         key: 'dashboard.youtube',
-        path: `/dashboard/dashboard/youtube_service`,
+        path: `/dashboard/dashboard/youtube`,
         component: React.lazy(() => import('../pages/dashboard/youtube/index')),
     },
     {
@@ -76,5 +76,10 @@ export const protectedRoutes = [
         key: 'dashboard.calendar',
         path: `/dashboard/dashboard/calendar`,
         component: React.lazy(() => import('../pages/dashboard/calendar/index')),
+    },
+    {
+        key: 'dashboard.calendar',
+        path: `/dashboard/dashboard/:playlistId`,
+        component: React.lazy(() => import('../pages/dashboard/youtube/PlaylistVideos')),
     },
 ]
