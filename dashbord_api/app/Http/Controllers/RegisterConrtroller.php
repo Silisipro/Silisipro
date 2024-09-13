@@ -11,6 +11,8 @@ use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Models\Role;
 use App\Notifications\WelcomeEmail;
 use Illuminate\Support\Facades\Notification;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\SendMail;
 
 class RegisterConrtroller extends Controller
 {
@@ -63,24 +65,31 @@ class RegisterConrtroller extends Controller
                 'password' => 'required',
             ]);
 
-
             $user = new User();
             $user->name = trim($request->name);
             $user->email = trim($request->email);
             $user->password =  trim(Hash::make($request->password));
             $user->save();
 
-            Notification::send($user, new WelcomeEmail($user));
+            $link = '';
 
+            $body = 'Activate your account by clicking on this link'.$link;
 
-            return (new ServiceController())->apiResponse(200,$user,"User created successfully!");
+            $mail = [
+                'title' => 'Account activation link',
+                'body' =>$body
+               ];
+
+            (new MailController())->sendEmail($request->email,$mail);
+
+            return (new ServiceController())->apiResponse(200,User::whereEmail($request->email)->first(),"Account created successfully. An activation link has been sent to your email. Please click on it to activate your account!");
 
         }
         catch (\Exception $e)
         {
             return (new ServiceController())->apiResponse(500,[],$e->getMessage());
         }
-                
         }
+
     }
 
