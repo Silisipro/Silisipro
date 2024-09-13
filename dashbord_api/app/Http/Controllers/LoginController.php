@@ -66,9 +66,9 @@ class LoginController extends Controller
  *         response=200,
  *         description="connected successfully",
  *         @OA\JsonContent(
- *             @OA\Property(property="token_type", type="string", example="Bearer"),
- *             @OA\Property(property="role", type="array", @OA\Items(type="string")),
- *             @OA\Property(property="access_token", type="string", example="your-access-token")
+ *             @OA\Property(property="status_code", type="string", example="200"),
+ *             @OA\Property(property="data", type="array", @OA\Items(type="string")),
+ *            @OA\Property(property="message", type="string", example="Login successful!")
  *         )
  *     ),
  *     @OA\Response(
@@ -92,11 +92,11 @@ class LoginController extends Controller
             $password = trim($request-> password);
             
             $user = User::where('email', $email)->first();
-            $role = $user->is_admin;
             
             if (!$user) {
                 return (new ServiceController())->apiResponse(404,$user,"User not found. Please create an account first!");
             }
+            $role = $user->is_admin;
             if (Hash::check($password, $user->password)) {
                 $token = $user->createToken('auth_token')->plainTextToken;
                 return (new ServiceController())->apiResponse(200,['user'=>$user, 'token'=>$token,'admin'=>$role],"Login successful!");

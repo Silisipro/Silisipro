@@ -46,19 +46,19 @@
                             "application/json": {
                                 "schema": {
                                     "properties": {
-                                        "token_type": {
+                                        "status_code": {
                                             "type": "string",
-                                            "example": "Bearer"
+                                            "example": "200"
                                         },
-                                        "role": {
+                                        "data": {
                                             "type": "array",
                                             "items": {
                                                 "type": "string"
                                             }
                                         },
-                                        "access_token": {
+                                        "message": {
                                             "type": "string",
-                                            "example": "your-access-token"
+                                            "example": "Login successful!"
                                         }
                                     },
                                     "type": "object"
@@ -158,15 +158,23 @@
                     }
                 },
                 "responses": {
-                    "201": {
+                    "200": {
                         "description": "Utilisateur enregistré avec succès",
                         "content": {
                             "application/json": {
                                 "schema": {
                                     "properties": {
+                                        "status_code": {
+                                            "type": "string",
+                                            "example": "200"
+                                        },
+                                        "data": {
+                                            "type": "string",
+                                            "example": "your-access-token"
+                                        },
                                         "message": {
                                             "type": "string",
-                                            "example": "Utilisateur enregistré avec succès"
+                                            "example": "User created successfully!"
                                         }
                                     },
                                     "type": "object"

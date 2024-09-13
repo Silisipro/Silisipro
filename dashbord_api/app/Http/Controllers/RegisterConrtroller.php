@@ -35,10 +35,12 @@ class RegisterConrtroller extends Controller
  *         )
  *     ),
  *     @OA\Response(
- *         response=201,
+ *         response=200,
  *         description="Utilisateur enregistré avec succès",
  *         @OA\JsonContent(
- *             @OA\Property(property="message", type="string", example="Utilisateur enregistré avec succès"),
+ *            @OA\Property(property="status_code", type="string", example="200"),
+ *             @OA\Property(property="data", type="string", example="your-access-token"),
+ *            @OA\Property(property="message", type="string", example="User created successfully!")
  *         )
  *     ),
  *     @OA\Response(
