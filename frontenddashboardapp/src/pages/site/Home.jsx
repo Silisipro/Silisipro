@@ -13,9 +13,8 @@ function Home() {
 
     <div className="App">
       <div> <Navbar /> </div>
-      <div className="flex space-x-4 mt-4">   
+      <div>   
         <DateWidget />
-        <WeatherWidget />
       </div> <br />
       <div className=''>  
         <Widget />
