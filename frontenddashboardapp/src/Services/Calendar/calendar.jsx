@@ -127,7 +127,7 @@ const CalendarComponent = () => {
                                     </div>
                              
                             ) : (
-                                <p>No data available for the selected dates.</p>
+                                <p>No data available .</p>
                             )}
                         </div>
                     ) : (

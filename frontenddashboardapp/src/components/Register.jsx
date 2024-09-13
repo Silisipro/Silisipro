@@ -25,9 +25,9 @@ const SignupForm = () => {
     password_confirm: ''
   });
 
-  const [errors, setErrors] = useState({}); // État pour les erreurs de validation
+  const [errors, setErrors] = useState({}); 
 
-  // Gestion des changements dans les champs du formulaire
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({
@@ -36,28 +36,28 @@ const SignupForm = () => {
     });
   };
 
-  // Fonction pour valider les données du formulaire
+
   const validateForm = () => {
     let formErrors = {};
   
-    // Vérification du champ 'name'
+
     if (!formData.name || formData.name.trim() === "") {
       formErrors.name = "Name is required";
     }
   
-    // Vérification du champ 'email'
+
     if (!formData.email || formData.email.trim() === "") {
       formErrors.email = "Email is required";
     } else if (!/\S+@\S+\.\S+/.test(formData.email.trim())) {
       formErrors.email = "Email is invalid";
     }
   
-    // Vérification du champ 'password'
+   
     if (!formData.password || formData.password.trim() === "") {
       formErrors.password = "Password is required";
     }
   
-    // Vérification de la confirmation du mot de passe
+   
     if (formData.password !== formData.password_confirm) {
       formErrors.password_confirm = "Passwords must match";
     }
@@ -96,7 +96,7 @@ const SignupForm = () => {
         setUserInfo(userInfoRes.data); 
 
         
-        // await listDriveFiles(accessToken);
+      
       } catch (error) {
         console.error('Erreur lors de la récupération des données', error);
         setError('Erreur lors de la récupération des données');
@@ -117,7 +117,7 @@ const SignupForm = () => {
 
   });
 
-  // Gestion de la soumission du formulaire
+
   const handleSignup = (e) => {
     e.preventDefault();
     const formErrors = validateForm();
@@ -128,7 +128,7 @@ const SignupForm = () => {
         }
       })
         .catch((err) => {
-          // Gestion des erreurs de l'action
+         
           setErrors({ submit: err.message });
         });
     } else {
@@ -152,7 +152,7 @@ const SignupForm = () => {
               onChange={handleChange}
               className={`mt-1 block w-full px-3 py-2 border ${errors.name ? 'border-red-500' : 'border-gray-300'} rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm`}
               placeholder="Votre nom"
-              // required
+            
             />
             {errors.name && <p className="text-red-500 text-sm">{errors.name}</p>}
           </div>
@@ -168,7 +168,7 @@ const SignupForm = () => {
               onChange={handleChange}
               className={`mt-1 block w-full px-3 py-2 border ${errors.email ? 'border-red-500' : 'border-gray-300'} rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm`}
               placeholder="you@example.com"
-              // required
+            
             />
             {errors.email && <p className="text-red-500 text-sm">{errors.email}</p>}
           </div>
@@ -184,7 +184,7 @@ const SignupForm = () => {
               onChange={handleChange}
               className={`mt-1 block w-full px-3 py-2 border ${errors.password ? 'border-red-500' : 'border-gray-300'} rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm`}
               placeholder="••••••••"
-              // required
+             
             />
             {errors.password && <p className="text-red-500 text-sm">{errors.password}</p>}
           </div>
@@ -200,7 +200,7 @@ const SignupForm = () => {
               onChange={handleChange}
               className={`mt-1 block w-full px-3 py-2 border ${errors.password_confirm ? 'border-red-500' : 'border-gray-300'} rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm`}
               placeholder="••••••••"
-              // required
+             
             />
             {errors.password_confirm && <p className="text-red-500 text-sm">{errors.password_confirm}</p>}
           </div>

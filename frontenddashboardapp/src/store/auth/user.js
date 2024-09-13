@@ -4,6 +4,8 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import  FetchJSON from '../../helper/api'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { FaBedPulse } from "react-icons/fa6";
+import { act } from "react-dom/test-utils";
 // import { setItemStore, removeItemStore } from "@/helpers/localstorage";
 
 export const registerUser = createAsyncThunk(
@@ -11,10 +13,10 @@ export const registerUser = createAsyncThunk(
   async (data, { rejectWithValue }) => {
     try {
       const response = await axios.post(`${API_BASE_URL}/register`, data);
-      // On retourne uniquement les données pertinentes
+      
       return response.data; 
     } catch (error) {
-      // Gestion des erreurs pour renvoyer un message sérialisé
+    
       return rejectWithValue({
         message: error.response?.data?.message || 'Une erreur est survenue',
         status: error.response?.status || 500,
@@ -31,10 +33,30 @@ export const registerGoogle = createAsyncThunk(
       const email = data.email;
       const name = data.name;
       const response = await axios.post(`${API_BASE_URL}/login/google/${email}/${name}`, data);
-      // On retourne uniquement les données pertinentes
+     
       return response.data; 
     } catch (error) {
-      // Gestion des erreurs pour renvoyer un message sérialisé
+    
+      return rejectWithValue({
+        message: error.response?.data?.message || 'Une erreur est survenue',
+        status: error.response?.status || 500,
+      });
+    }
+  }
+);
+
+export const activerService = createAsyncThunk(
+  'registerGoogle/user',
+  
+  async (data, { rejectWithValue }) => {
+    try {
+      const email = data.email;
+      const name = data.name;
+      const response = await axios.post(`${API_BASE_URL}/login/google/${email}/${name}`, data);
+     
+      return response.data; 
+    } catch (error) {
+    
       return rejectWithValue({
         message: error.response?.data?.message || 'Une erreur est survenue',
         status: error.response?.status || 500,
@@ -48,10 +70,10 @@ export const login = createAsyncThunk(
   async (data, { rejectWithValue }) => {
     try {
       const response = await axios.post(`${API_BASE_URL}/login`, data);
-      // On retourne uniquement les données pertinentes
+
       return response.data; 
     } catch (error) {
-      // Gestion des erreurs pour renvoyer un message sérialisé
+   
       return rejectWithValue({
         message: error.response?.data?.message || 'Une erreur est survenue',
         status: error.response?.status || 500,
@@ -72,11 +94,11 @@ export const logout = createAsyncThunk(
 
 
 const initialState = {
-    isLoggedIn: true,
-    jwtToken: localStorage.getItem('accessToken') || '', 
-    connecte : true,
+    isLoggedIn: false,
+    jwtToken: localStorage.getItem('token_access') || null, 
+    connecte : false,
     userRloes: 'user',
-    userInfos: localStorage.getItem('information') || '',
+    userInfos: localStorage.getItem('userInfo') || '',
     register: [],
     login: [],
 };
@@ -102,11 +124,11 @@ const sidebarSlice = createSlice({
         } else {
           toast.error(action.payload?.message)
         }
-        // Assurez-vous que vous accédez aux données correctement
+    
       })
       .addCase(registerUser.rejected, (state, action) => {
         state.loading = false;
-        // Utilisez le message d'erreur sérialisé
+     
         state.error = action.payload?.message || action.error.message;
       })
       .addCase(registerGoogle.pending, (state) => {
@@ -121,11 +143,11 @@ const sidebarSlice = createSlice({
         } else {
           toast.error(action.payload?.message)
         }
-        // Assurez-vous que vous accédez aux données correctement
+       
       })
       .addCase(registerGoogle.rejected, (state, action) => {
         state.loading = false;
-        // Utilisez le message d'erreur sérialisé
+    
         state.error = action.payload?.message || action.error.message;
       })
       .addCase(login.pending, (state) => {
@@ -134,9 +156,12 @@ const sidebarSlice = createSlice({
       })
       .addCase(login.fulfilled, (state, action) => {
         state.loading = false;
-        // Vérifiez l'accès aux données
+  
         state.login = action.payload?.data || action.payload;
         if(action.payload?.status_code === 200 ) {
+          state.connecte = true
+          state.isLoggedIn= true
+          state.jwtToken = action.payload?.data.token
           toast.success(action.payload?.message)
         } else {
           toast.error(action.payload?.message)
@@ -144,7 +169,7 @@ const sidebarSlice = createSlice({
       })
       .addCase(login.rejected, (state, action) => {
         state.loading = false;
-        // Utilisez le message d'erreur sérialisé
+      
         state.error = action.payload?.message || action.error.message;
       })
       .addCase(logout .pending, (state) => {
@@ -153,7 +178,7 @@ const sidebarSlice = createSlice({
       })
       .addCase(logout .fulfilled, (state, action) => {
         state.loading = false;
-        // Vérifiez l'accès aux données
+      
         state.logout  = action.payload?.data || action.payload;
         if(action.payload?.status_code === 200 ) {
           toast.success(action.payload?.message)
@@ -163,7 +188,7 @@ const sidebarSlice = createSlice({
       })
       .addCase(logout .rejected, (state, action) => {
         state.loading = false;
-        // Utilisez le message d'erreur sérialisé
+   
         state.error = action.payload?.message || action.error.message;
       });
   }  

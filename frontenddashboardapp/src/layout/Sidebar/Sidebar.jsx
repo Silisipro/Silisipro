@@ -1,9 +1,9 @@
 import { useSelector } from 'react-redux';
 import { personsImgs } from '../../utils/images';
 import { navigationLinks } from '../../configs/NavigationConfig';
-import { Link } from 'react-router-dom'; // Importez Link
+import { Link } from 'react-router-dom'; 
 import "./Sidebar.css";
-import { logout  } from '../store/auth/user';
+import { logout  } from '../../store/auth/user';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 

@@ -6,9 +6,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useGoogleLogin, GoogleLogin } from '@react-oauth/google';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-// import  VideoPlayer   from "./VideoPlayer";
-// import './google.css'
-
 
 
 
@@ -22,6 +19,10 @@ const LoginForm = () => {
   const [error, setError] = useState(null);
   const [user, setUser] = useState(null);
   const [videoId, setVideoId] = useState('');
+  const authentiqueState = useSelector((state) => state.user);
+  const jwtToken = authentiqueState ? authentiqueState.jwtToken : null;
+
+
   const [formData, setFormData] = useState({
     email: '',
     password: ''
@@ -71,13 +72,8 @@ const LoginForm = () => {
   const handleGoogleSignIn = useGoogleLogin({
     onSuccess: async (tokenResponse) => {
       const accessToken = tokenResponse.access_token;
-      localStorage.setItem('accessToken', accessToken);
-  
-      console.log(tokenResponse);
-      localStorage.setItem('token', accessToken);
+      localStorage.setItem('token_access', accessToken);
       
-      
-  
       try {
     
         const userInfoRes = await axios.get(
@@ -100,8 +96,6 @@ const LoginForm = () => {
         const information = userInfoRes.data;
         localStorage.setItem('userInfo', information) 
   
-        
-        // await listDriveFiles(accessToken);
       } catch (error) {
         console.error('Erreur lors de la récupération des données', error);
         setError('Erreur lors de la récupération des données');
@@ -140,7 +134,7 @@ const LoginForm = () => {
               onChange={handleChange}
               className={`mt-1 block w-full px-3 py-2 border ${errors.email ? 'border-red-500' : 'border-gray-300'} rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm`}
               placeholder="you@example.com"
-              // required
+       
             />
             {errors.email && <p className="text-red-500 text-sm">{errors.email}</p>}
           </div>
@@ -157,7 +151,7 @@ const LoginForm = () => {
               onChange={handleChange}
               className={`mt-1 block w-full px-3 py-2 border ${errors.password ? 'border-red-500' : 'border-gray-300'} rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm`}
               placeholder="••••••••"
-              // required
+        
             />
             {errors.password && <p className="text-red-500 text-sm">{errors.password}</p>}
           </div>
@@ -171,18 +165,6 @@ const LoginForm = () => {
           {errors.submit && <p className="text-red-500 text-sm text-center mt-4">{errors.submit}</p>}
         </form>
 
-        {/* <div className="mt-6">
-            <GoogleLogin
-              onSuccess={handleGoogleSignIn}
-              onError={() => {
-                console.log('Erreur lors de la connexion avec Google');
-                setError('Erreur lors de la connexion avec Google');
-              }}
-              scope="profile email https://www.googleapis.com/auth/drive.readonly"
-              prompt="consent"
-              buttonText="Sign in with Google"
-            />
-        </div> */}
 
         <div className="mt-6">
           <button
