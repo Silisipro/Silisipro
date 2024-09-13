@@ -1,14 +1,14 @@
 import { iconsImgs } from "../utils/images";
 
 export const navigationLinks = [
-    { id: 1, title: 'Home', image: iconsImgs.home, path: '/dashboards/default' },
-    { id: 2, title: 'Budget', image: iconsImgs.budget, path: '/budget' },
-    { id: 3, title: 'Transactions', image: iconsImgs.plane, path: '/transactions' },
-    { id: 4, title: 'Subscriptions', image: iconsImgs.wallet, path: '/subscriptions' },
-    { id: 5, title: 'Loans', image: iconsImgs.bills, path: '/loans' },
-    { id: 6, title: 'Reports', image: iconsImgs.report, path: '/reports' },
-    { id: 7, title: 'Savings', image: iconsImgs.wallet, path: '/savings' },
-    { id: 8, title: 'Financial Advice', image: iconsImgs.wealth, path: '/financial-advice' },
-    { id: 9, title: 'Account', image: iconsImgs.user, path: '/account' },
+    { id: 1, title: 'Home', image: iconsImgs.home, path: '/dashboard' },
+    { id: 2, title: 'Weather', image: iconsImgs.budget, path: '/dashboard/dashboard/weather' },
+    { id: 3, title: 'Google Drive', image: iconsImgs.plane, path: '/dashboard/dashboard/google_drive' },
+    { id: 4, title: 'Calendar', image: iconsImgs.wallet, path: '/dashboard/dashboard/calendar' },
+    { id: 5, title: 'Youtube', image: iconsImgs.bills, path: '/dashboard/dashboard/youtube' },
+    { id: 6, title: 'Translate', image: iconsImgs.report, path: '/dashboard/dashboard/translate' },
+    { id: 7, title: 'Favorite team', image: iconsImgs.wallet, path: '/dashboard/dashboard/favorite_team' },
+    { id: 8, title: 'Exchange rate', image: iconsImgs.wealth, path: '/dashboard/dashboard/rate' },
+    { id: 9, title: 'Astronomie', image: iconsImgs.user, path: '/dashboard/dashboard/atronomie' },
     { id: 10, title: 'Settings', image: iconsImgs.gears, path: '/settings' }
 ];

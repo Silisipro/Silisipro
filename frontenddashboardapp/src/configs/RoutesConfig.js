@@ -12,7 +12,7 @@ export const publicRoutes = [
     },
     {
         key: 'login',
-        path: `/login`,
+        path: `/auth/login`,
         component: React.lazy(() => import('../pages/auth/login/index')),
         meta: {
             blankLayout: true
@@ -20,7 +20,7 @@ export const publicRoutes = [
     },
     {
         key: 'register',
-        path: `/register`,
+        path: `/auth/register`,
         component: React.lazy(() => import('../pages/auth/register/index')),
         meta: {
             blankLayout: true
@@ -31,12 +31,17 @@ export const publicRoutes = [
 export const protectedRoutes = [
     {
         key: 'dashboard.default',
-        path: `/dashboards/default`,
+        path: `/dashboard`,
         component: React.lazy(() => import('../pages/dashboard/index')),
     },
     {
         key: 'dashboard.youtube',
-        path: `/dashboards/youtube_service`,
+        path: `/dashboard/dashboard/youtube_service`,
         component: React.lazy(() => import('../pages/dashboard/youtube/index')),
+    },
+    {
+        key: 'dashboard.meteo',
+        path: `/dashboard/dashboard/weather`,
+        component: React.lazy(() => import('../pages/dashboard/meteo/index')),
     },
 ]

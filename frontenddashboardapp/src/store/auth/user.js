@@ -2,9 +2,9 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-    isLoggedIn: false,
-    jwtToken: null, 
-    connecte : false,
+    isLoggedIn: true,
+    jwtToken: "kkkkkk", 
+    connecte : true,
     userRloes: 'user'
 };
 

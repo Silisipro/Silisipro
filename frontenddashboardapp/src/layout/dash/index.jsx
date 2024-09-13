@@ -1,18 +1,30 @@
-import React from 'react';
+
+import React, { Suspense } from 'react';
+import "./Content.css";
+import ContentTop from '../../components/ContentTop/ContentTop';
+import ContentMain from '../../components/ContentMain/ContentMain';
 import Sidebar from '../Sidebar/Sidebar';
-import Content from '../Content/Content';
-import '../../App.css'
+ import '../../App.css'
+
+export const AppLayout = ({ children }) => {
 
 
-function App() {
   return (
-
-    <div className="app">
-      <Sidebar />
-      <Content />
+      <>
+        <Sidebar />
+      <div className='main-content'>
+      <ContentTop />
+      <Suspense fallback={<div>Loading...</div>}>
+          {children}
+      </Suspense>
+  
+      {/* <ContentMain /> */}
     </div>
+          
 
-  );
+      </>
+  )
 }
 
-export default App;
+
+export default (React.memo(AppLayout));

@@ -8,6 +8,8 @@ const AppRoute = ({ component: Component, routeKey, blankLayout, ...props }) => 
     useEffect(() => {
         const isBlank = !!blankLayout;
         dispatch(onBlankLayout(isBlank));
+        console.log(isBlank);
+        
     }, [blankLayout, dispatch]);
 
     return <Component {...props} />;
