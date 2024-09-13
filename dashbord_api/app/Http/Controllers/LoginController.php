@@ -192,6 +192,8 @@ class LoginController extends Controller
             }
             $user->email_verified_at = now();
             $user->save();
+            return redirect('https://api.dashboard.e-coye.com/');
+
             // return (new ServiceController())->apiResponse(200,$user,"Compte validé avec succès!");
         }
         catch (\Exception $e)
