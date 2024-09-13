@@ -1,18 +1,139 @@
-import React from "react";
+import React, { useState } from "react";
 import { AiFillGoogleCircle } from "react-icons/ai";
-import { Link } from 'react-router-dom'
-
-// Import de l'icône
-
-// import Login from './components/Login'
-
+import { Link } from 'react-router-dom';
+import { registerUser, registerGoogle } from '../store/auth/user';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { useGoogleLogin, GoogleLogin } from '@react-oauth/google';
+import axios from 'axios';
 
 
 const SignupForm = () => {
-  const handleSignup = (event) => {
-    event.preventDefault();
-    // Logique d'inscription ici
-    console.log("Formulaire d'inscription soumis");
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  // const user = useSelector((state) => state.user);
+  const [userInfo, setUserInfo] = useState(null);
+  const [files, setFiles] = useState([]);
+  const [error, setError] = useState(null);
+  const [user, setUser] = useState(null);
+  const [videoId, setVideoId] = useState('');
+
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    password: '',
+    password_confirm: ''
+  });
+
+  const [errors, setErrors] = useState({}); // État pour les erreurs de validation
+
+  // Gestion des changements dans les champs du formulaire
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
+
+  // Fonction pour valider les données du formulaire
+  const validateForm = () => {
+    let formErrors = {};
+  
+    // Vérification du champ 'name'
+    if (!formData.name || formData.name.trim() === "") {
+      formErrors.name = "Name is required";
+    }
+  
+    // Vérification du champ 'email'
+    if (!formData.email || formData.email.trim() === "") {
+      formErrors.email = "Email is required";
+    } else if (!/\S+@\S+\.\S+/.test(formData.email.trim())) {
+      formErrors.email = "Email is invalid";
+    }
+  
+    // Vérification du champ 'password'
+    if (!formData.password || formData.password.trim() === "") {
+      formErrors.password = "Password is required";
+    }
+  
+    // Vérification de la confirmation du mot de passe
+    if (formData.password !== formData.password_confirm) {
+      formErrors.password_confirm = "Passwords must match";
+    }
+  
+    return formErrors;
+  };
+
+  const handleGoogleSignUp = useGoogleLogin({
+    onSuccess: async (tokenResponse) => {
+      const accessToken = tokenResponse.access_token;
+
+      console.log(tokenResponse);
+      localStorage.setItem('token', accessToken);
+      localStorage.setItem('accessToken', accessToken);
+      
+      
+
+      try {
+    
+        const userInfoRes = await axios.get(
+          `https://www.googleapis.com/oauth2/v1/userinfo?access_token=${accessToken}`,
+          {
+            headers: {
+              Authorization: `Bearer ${accessToken}`,
+              Accept: 'application/json',
+            },
+          }
+        );
+
+        if (userInfoRes && userInfoRes.data) {
+          dispatch(registerGoogle(userInfoRes.data));
+          navigate('/auth/login'); 
+        } else {
+          console.error("Les données utilisateur ne sont pas disponibles");
+        }        
+        setUserInfo(userInfoRes.data); 
+
+        
+        // await listDriveFiles(accessToken);
+      } catch (error) {
+        console.error('Erreur lors de la récupération des données', error);
+        setError('Erreur lors de la récupération des données');
+      }
+    },
+    onError: () => {
+      console.log('Erreur lors de la connexion avec Google');
+      setError('Erreur lors de la connexion avec Google');
+    },
+    scope: [
+      'https://www.googleapis.com/auth/drive.readonly',
+      'https://www.googleapis.com/auth/gmail.readonly',
+      'https://www.googleapis.com/auth/calendar',
+      'https://www.googleapis.com/auth/youtube',
+      
+    ].join(' '),
+    prompt: 'consent',
+
+  });
+
+  // Gestion de la soumission du formulaire
+  const handleSignup = (e) => {
+    e.preventDefault();
+    const formErrors = validateForm();
+    if (Object.keys(formErrors).length === 0) {
+      dispatch(registerUser(formData)).then((result) => {
+        if(result.payload.status_code === 200) {
+          navigate('/auth/login'); 
+        }
+      })
+        .catch((err) => {
+          // Gestion des erreurs de l'action
+          setErrors({ submit: err.message });
+        });
+    } else {
+      setErrors(formErrors);
+    }
   };
 
   return (
@@ -26,11 +147,14 @@ const SignupForm = () => {
             </label>
             <input
               type="text"
-              id="name"
-              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+              name="name"
+              value={formData.name}
+              onChange={handleChange}
+              className={`mt-1 block w-full px-3 py-2 border ${errors.name ? 'border-red-500' : 'border-gray-300'} rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm`}
               placeholder="Votre nom"
-              required
+              // required
             />
+            {errors.name && <p className="text-red-500 text-sm">{errors.name}</p>}
           </div>
 
           <div>
@@ -39,11 +163,14 @@ const SignupForm = () => {
             </label>
             <input
               type="email"
-              id="email"
-              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+              className={`mt-1 block w-full px-3 py-2 border ${errors.email ? 'border-red-500' : 'border-gray-300'} rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm`}
               placeholder="you@example.com"
-              required
+              // required
             />
+            {errors.email && <p className="text-red-500 text-sm">{errors.email}</p>}
           </div>
 
           <div>
@@ -52,24 +179,30 @@ const SignupForm = () => {
             </label>
             <input
               type="password"
-              id="password"
-              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+              name="password"
+              value={formData.password}
+              onChange={handleChange}
+              className={`mt-1 block w-full px-3 py-2 border ${errors.password ? 'border-red-500' : 'border-gray-300'} rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm`}
               placeholder="••••••••"
-              required
+              // required
             />
+            {errors.password && <p className="text-red-500 text-sm">{errors.password}</p>}
           </div>
 
           <div>
-            <label htmlFor="confirm-password" className="block text-sm font-medium text-gray-700">
+            <label htmlFor="password_confirm" className="block text-sm font-medium text-gray-700">
               Password confirmation
             </label>
             <input
               type="password"
-              id="confirm-password"
-              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+              name="password_confirm"
+              value={formData.password_confirm}
+              onChange={handleChange}
+              className={`mt-1 block w-full px-3 py-2 border ${errors.password_confirm ? 'border-red-500' : 'border-gray-300'} rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm`}
               placeholder="••••••••"
-              required
+              // required
             />
+            {errors.password_confirm && <p className="text-red-500 text-sm">{errors.password_confirm}</p>}
           </div>
 
           <button
@@ -78,21 +211,22 @@ const SignupForm = () => {
           >
             Sign up
           </button>
+          {errors.submit && <p className="text-red-500 text-sm text-center mt-4">{errors.submit}</p>}
         </form>
 
         <div className="mt-6">
           <button
-            // onClick={handleGoogleSignIn}
+            onClick={handleGoogleSignUp}
             className="w-full flex items-center justify-center bg-gray-100 text-black py-2 px-4 rounded-md hover:bg-orange-500 hover:text-white focus:outline-none focus:ring-2 focus:ring-red-400 focus:ring-opacity-50"
           >
-            <AiFillGoogleCircle className="w-6 h-6 mr-2" /> 
-          Sign up with google
+            <AiFillGoogleCircle className="w-6 h-6 mr-2" />
+            Sign up with Google
           </button>
         </div>
 
         <div className="mt-6 text-center">
           <p className="text-sm">
-          You already have an account ? <Link to="/auth/login" className="text-indigo-600 hover:underline">sign in</Link>
+            You already have an account? <Link to="/auth/login" className="text-indigo-600 hover:underline">Sign in</Link>
           </p>
         </div>
       </div>

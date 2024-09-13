@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-const ACCESS_TOKEN = 'ya29.a0AcM612xBy8ZfEdw3TU6pE5a3WguLizeK5Z8JZpNmLLfQN6voobYVWAxVD5FCDhRQEfRUYG8x1QrTpqg25S7a933UfRicqFhwT84LUXC1hM3cYd2F7RQ9STenVix2t0lsDPJTB8UFMqKhqs8IMii4JGnK1ndzNUGyoEMXTysvaCgYKAUgSARESFQHGX2MiuwYsbTgCmkodOOdSjN-ySw0175';
+const ACCESS_TOKEN = 'ya29.a0AcM612zeB_ZbedEuvXSTCl_eyVylEZBFFvVXvF5oRt6y58x6OX5XvxMJoobjdUxljP6_nwUIYVNMu57idmhxwEMK6hBNF83kXt9ryvrc7HE9e_GbroI0AXSpORP5lJ6rUix4aTSq8AZC4MAzpY8qJ4m72kkyBDApbAaCgYKAcoSARESFQHGX2MiFSeRzfqDiAH9cWi3RyrbWw0169';
 
 const headers = {
     'Authorization': `Bearer ${ACCESS_TOKEN}`,
@@ -10,17 +10,21 @@ const headers = {
 
 export const createEvent = createAsyncThunk(
     'calendar/createEvent',
-    async ({ rejectWithValue }) => {
-        const url = 'https://www.googleapis.com/calendar/v3/calendars/primary/events';
+    async ({ event_data}, { rejectWithValue }) => {  
+      const url = 'https://www.googleapis.com/calendar/v3/calendars/primary/events';
+      console.log(event_data);
+      
+  
+      try {
 
-        try {
-            const response = await axios.post(url, {}, { headers });
-            return response.data;
-        } catch (error) {
-            return rejectWithValue(error.response.data);
-        }
+        const response = await axios.post(url, event_data, { headers });  
+        return response.data;
+      } catch (error) {
+        return rejectWithValue(error.response.data);
+      }
     }
-);
+  );
+  
 
 export const listEvents = createAsyncThunk(
     'calendar/listEvents',
@@ -149,31 +153,52 @@ export const deleteFile = createAsyncThunk(
 
 export const listPlaylists = createAsyncThunk(
     'playlists/Playlists',
-    async ({ rejectWithValue }) => {
+    async () => {
         const url = 'https://www.googleapis.com/youtube/v3/playlists?part=snippet,contentDetails&mine=true';
 
         try {
             const response = await axios.get(url, { headers });
             return response.data;
         } catch (error) {
-            return rejectWithValue(error.response.data);
+            return 
         }
     }
 );
 
+// export const videoPlaylist = createAsyncThunk(
+//     'playlistItems/PlaylistItems',
+//     async ({params}, { rejectWithValue }) => {
+//         const url = 'https://www.googleapis.com/youtube/v3/playlistItems';
+
+//         try {
+//             const response = await axios.get(url, { headers, params });
+//             return response.data;
+//         } catch (error) {
+//             return rejectWithValue(error.response.data);
+//         }
+//     }
+// );
+
+
 export const videoPlaylist = createAsyncThunk(
     'playlistItems/PlaylistItems',
-    async (params, { rejectWithValue }) => {
+    async ({ playlistId, maxResults = 10 }, { rejectWithValue }) => {
         const url = 'https://www.googleapis.com/youtube/v3/playlistItems';
+        const params = {
+            part: 'snippet,contentDetails',
+            playlistId: playlistId,
+            maxResults: maxResults,
+        };
 
         try {
             const response = await axios.get(url, { headers, params });
-            return response.data;
+            return response.data.items;
         } catch (error) {
             return rejectWithValue(error.response.data);
         }
     }
 );
+
 
 export const infoCanal = createAsyncThunk(
     'info/infos',
@@ -281,6 +306,7 @@ export const servicegoogleSlice = createSlice({
         listVideoLiks: [],
         loading: null,
         error: null,
+        status: 'idle'
     },
     reducers: {
 
@@ -288,27 +314,33 @@ export const servicegoogleSlice = createSlice({
     extraReducers: (builder) => {
         builder
         .addCase(createEvent.pending, (state) => {
+             state.status==='pending'
             state.loading = true;
             state.error = null;
         })
         .addCase(createEvent.fulfilled, (state, action) => {
+             state.status==='created'
             state.loading = false;
             state.event = action.payload.data;
         })
         .addCase(createEvent.rejected, (state, action) => {
             state.loading = false;
+            state.status==='failed'
             state.error = action.error.message;
         })
         .addCase(listEvents.pending, (state) => {
+             state.status==='pending'
             state.loading = true;
             state.error = null;
         })
         .addCase(listEvents.fulfilled, (state, action) => {
-            state.loading = false;
-            state.events = action.payload.data;
+            state.loading = false
+            state.status==='sucess'
+            state.events = action.payload.items;
         })
         .addCase(listEvents.rejected, (state, action) => {
             state.loading = false;
+             state.status==='failed'
             state.error = action.error.message;
         })
         .addCase(lireMessages.pending, (state) => {
@@ -382,7 +414,7 @@ export const servicegoogleSlice = createSlice({
         })
         .addCase(listPlaylists.fulfilled, (state, action) => {
             state.loading = false;
-            state.listsPlay = action.payload.data;
+            state.listsPlay = action.payload.items;
         })
         .addCase(listPlaylists.rejected, (state, action) => {
             state.loading = false;
@@ -393,7 +425,9 @@ export const servicegoogleSlice = createSlice({
         })
         .addCase(videoPlaylist.fulfilled, (state, action) => {
             state.loading = false;
-            state.videoList = action.payload.data;
+            console.log(action);
+            
+            state.videoList = action.payload;
         })
         .addCase(videoPlaylist.rejected, (state, action) => {
             state.loading = false;

@@ -24,10 +24,15 @@ const DateComponent = () => {
   };
 
   return (
-    <div className='w-1/2 mt-20 ml-5 first-letter  ' >
-      <h2>Date actuelle : {formatDate(currentDate)}</h2>
-      <h3>Heure actuelle : {formatTime(currentDate)}</h3>
-    </div>
+    <div className='w-full sm:w-1/2 mt-10 mx-auto bg-white border border-gray-200 rounded-lg shadow-lg p-6'>
+    <h2 className='text-2xl font-semibold text-gray-800 mb-2'>
+      Date actuelle : <span className='font-normal text-gray-600'>{formatDate(currentDate)}</span>
+    </h2>
+    <h3 className='text-xl font-medium text-gray-700'>
+      Heure actuelle : <span className='font-normal text-gray-500'>{formatTime(currentDate)}</span>
+    </h3>
+  </div>
+  
   );
 };
 

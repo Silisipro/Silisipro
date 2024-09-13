@@ -3,9 +3,26 @@ import { personsImgs } from '../../utils/images';
 import { navigationLinks } from '../../configs/NavigationConfig';
 import { Link } from 'react-router-dom'; // Importez Link
 import "./Sidebar.css";
+import { logout  } from '../store/auth/user';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+
+
+
 
 const Sidebar = () => {
   const isSidebarOpen = useSelector((state) => state.sidebar.isSidebarOpen);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    console.log('logout')
+    dispatch(logout()).then((result) => {
+      if(result.payload.status_code) {
+        navigate('/auth/login')
+      }
+    });
+  }
 
   return (
     <div className={`sidebar ${isSidebarOpen ? 'sidebar-change' : ''}`}>
@@ -37,6 +54,11 @@ const Sidebar = () => {
           ))}
         </ul>
       </nav>
+        <button onClick={handleLogout}
+          className="bg-red-500 text-white font-semibold py-2 px-12 rounded-lg shadow-md hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-400 focus:ring-opacity-50 transition duration-150 ease-in-out"
+        >
+          Logout
+        </button> 
     </div>
   );
 };

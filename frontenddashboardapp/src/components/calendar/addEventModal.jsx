@@ -1,35 +1,46 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { createEvent } from '../../store/serviceSlice/servicegoogleSlice';
 import './addEventModal.css'
 
 const EventModal = ({ showModal, handleClose }) => {
     const dispatch = useDispatch();
 
+    const { status } = useSelector((state) => state.servicegoogle);
    
     const [summary, setSummary] = useState('');
     const [startDate, setStartDate] = useState('');
     const [endDate, setEndDate] = useState('');
 
+
+    const formatDateToISO = (date) => {
+        const eventDate = new Date(date);
+        const offset = -eventDate.getTimezoneOffset() / 60;  
+        const timezone = offset > 0 ? `+${offset.toString().padStart(2, '0')}:00` : `-${Math.abs(offset).toString().padStart(2, '0')}:00`;
+        
+        return eventDate.toISOString().slice(0, 19) + timezone;
+    };
+
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        const newEvent = {
+        const event_data = {
             summary: summary,
             start: {
-                dateTime: startDate,
+                dateTime: formatDateToISO(startDate),
                 timeZone: "America/Los_Angeles",
             },
             end: {
-                dateTime: endDate,
+                dateTime: formatDateToISO(endDate),
                 timeZone: "America/Los_Angeles",
             },
         };
-
-      console.log(newEvent);
       
-        dispatch(createEvent(newEvent));
+        dispatch(createEvent({event_data}));
 
+        if(status ==="created"){
+            alert('Event add succefully')
+        }
      
         handleClose();
     };
