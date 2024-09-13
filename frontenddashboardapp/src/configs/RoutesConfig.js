@@ -71,4 +71,10 @@ export const protectedRoutes = [
         path: `/dashboard/dashboard/google_drive`,
         component: React.lazy(() => import('../pages/dashboard/driver/index')),
     },
+
+    {
+        key: 'dashboard.calendar',
+        path: `/dashboard/dashboard/calendar`,
+        component: React.lazy(() => import('../pages/dashboard/calendar/index')),
+    },
 ]

@@ -7,6 +7,8 @@ const DriverWidget = () => {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
+
+     
         const fetchNasaData = async () => {
             try {
                 const response = await axios.get('https://api.nasa.gov/neo/rest/v1/feed', {
