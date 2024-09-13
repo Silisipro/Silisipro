@@ -14,21 +14,54 @@ use Illuminate\Support\Facades\Notification;
 
 class RegisterConrtroller extends Controller
 {
+
+     /**
+ * @OA\Post(
+ *     path="/api/register",
+ *     tags={"Authentication"},
+ *     summary="Add a user",
+ *     description="Add a user",
+ *     @OA\RequestBody(
+ *         required=true,
+ *         @OA\MediaType(
+ *             mediaType="multipart/form-data",
+ *             @OA\Schema(
+ *                 type="object",
+ *                 @OA\Property(property="name", type="string", example="Doe", description="Nom de l'utilisateur"),
+ *                 @OA\Property(property="email", type="string", format="email", example="john.doe@gmail.com", description="Adresse e-mail de l'utilisateur"),
+ *                 @OA\Property(property="password", type="string", format="password", example="Bagdadi2000!", description="Confirmation du mot de passe (doit correspondre au mot de passe)"),
+ *                 @OA\Property(property="password_confirm", type="string", format="password", example="Bagdadi2000!", description="Confirmation du mot de passe (doit correspondre au mot de passe)")
+ *             )
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=201,
+ *         description="Utilisateur enregistré avec succès",
+ *         @OA\JsonContent(
+ *             @OA\Property(property="message", type="string", example="Utilisateur enregistré avec succès"),
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=400,
+ *         description="Erreur de validation",
+ *         @OA\JsonContent(
+ *             @OA\Property(property="error", type="object", additionalProperties={"type": "string"})
+ *         )
+ *     )
+ * )
+ */
+
     public function register(RegisterRequest $request)
     {
         try
         {
             $request->validate([
-                'name' => 'required',
-                'email' => 'required',
-                'password' => 'required',
+                'name' => 'required|min:3|regex:/^\S.*\S$/',
+                'email' => 'required|email|unique:users',
+                'password' => 'required|regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&]).{8,}$/',
+                'password_confirm' => 'required',
             ]);
-            $role = 'user';
 
-            if(Role::whereName($role)->first()->is_deleted == true){
-                return (new ServiceController())->apiResponse(404,[],"This role is deleted");
-    
-            }
 
             $user = new User();
             $user->name = $request->name;
@@ -37,7 +70,6 @@ class RegisterConrtroller extends Controller
             $user->save();
             
             // assign role to user
-            $user->assignRole($role);
             Notification::send($user, new WelcomeEmail($user));
 
 

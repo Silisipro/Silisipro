@@ -10,6 +10,16 @@ use Illuminate\Support\Str;
 use Laravel\Sanctum\PersonalAccessToken;
 
 
+/**
+ * @OA\Info(
+ *      title="Environnement de test des API du dashboard",
+ *      version="1.0.0",
+ *      description="test",
+ *      @OA\Contact(
+ *          email="",
+ *      )
+ * )
+ */
 
 class LoginController extends Controller
 {
@@ -43,6 +53,38 @@ class LoginController extends Controller
         }
     }
 
+      
+    /**
+ * @OA\Post(
+ *     path="/api/login",
+ *     summary="make authentification",
+ *     tags={"Authentication"},
+ *      @OA\RequestBody(
+ *         required=true,
+ *         @OA\JsonContent(
+ *             required={"name"},
+ *             @OA\Property(property="email", type="string", example="a@gmail.com"),
+ *             @OA\Property(property="password", type="string", example="P@$$w0rd")
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=200,
+ *         description="connected successfully",
+ *         @OA\JsonContent(
+ *             @OA\Property(property="token_type", type="string", example="Bearer"),
+ *             @OA\Property(property="role", type="array", @OA\Items(type="string")),
+ *             @OA\Property(property="access_token", type="string", example="your-access-token")
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=202,
+ *         description="Invalid credentials"
+ *     )
+ * )
+ */
+
+
+
     public function login(Request $request) {
         try {
 
@@ -75,4 +117,7 @@ class LoginController extends Controller
 
         }
     }
+
+
+
 }

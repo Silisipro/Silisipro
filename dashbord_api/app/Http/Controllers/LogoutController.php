@@ -9,6 +9,32 @@ use Laravel\Sanctum\PersonalAccessToken;
 
 class LogoutController extends Controller
 {
+
+       /**
+ * @OA\Post(
+ *     path="/api/logout",
+ *     tags={"Authentication"},
+ *     summary="Logout the user",
+ *     operationId="logout",
+ *     security={{"bearerAuth": {}}},
+ *     @OA\Response(
+ *         response=200,
+ *         description="Successfully logged out",
+ *         @OA\JsonContent(
+ *             @OA\Property(property="status", type="boolean", example=true),
+ *             @OA\Property(property="message", type="string", example="You are disconnected")
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=401,
+ *         description="Unauthorized",
+ *     ),
+ *     @OA\Response(
+ *         response=500,
+ *         description="Internal Server Error",
+ *     )
+ * )
+ */
     public function logout(Request $request) {
         try{
 

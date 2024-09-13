@@ -42,7 +42,7 @@ class RegisterRequest extends FormRequest
         'email.required' => 'The email field is required.',
         'email.email' => 'The email must be in the form .....@......',
         'password.required' => 'The password field is required.',
-        'password.regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&]).{8,}$/' => 'The password must contain at least (8 characters, uppercase, lowercase, number, special character).',
+        'password.regex' => 'The password must contain at least (8 characters, uppercase, lowercase, number, special character).',
     ];
 }
 
