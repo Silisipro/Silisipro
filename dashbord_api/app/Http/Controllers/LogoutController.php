@@ -38,6 +38,7 @@ class LogoutController extends Controller
     public function logout(Request $request) {
         try{
 
+
             $accessToken = $request->bearerToken();
             if($accessToken) {
                 $token = PersonalAccessToken::findToken($accessToken);
