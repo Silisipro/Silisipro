@@ -27,7 +27,7 @@ class RegisterRequest extends FormRequest
         return [
             'name' => 'required|min:3|regex:/^\S.*\S$/',
             'email' => 'required|email|unique:users',
-            'password' => 'required|regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&]).{8,}$/',
+            'password' => 'required|regex:/^(?=.[a-z])(?=.[A-Z])(?=.\d)(?=.[@$!%*?&]).{8,}$/',
             'password_confirm' => 'required',
         ];
        
@@ -42,7 +42,7 @@ class RegisterRequest extends FormRequest
         'email.required' => 'The email field is required.',
         'email.email' => 'The email must be in the form .....@......',
         'password.required' => 'The password field is required.',
-        'password.regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&]).{8,}$/' => 'The password must contain at least (8 characters, uppercase, lowercase, number, special character).',
+        'password.regex' => 'The password must contain at least (8 characters, uppercase, lowercase, number, special character).',
     ];
 }
 
@@ -54,4 +54,3 @@ protected function failedValidation(Validator $validator)
 }
 
 };
-
