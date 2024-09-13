@@ -35,10 +35,12 @@ class RegisterConrtroller extends Controller
  *         )
  *     ),
  *     @OA\Response(
- *         response=201,
+ *         response=200,
  *         description="Utilisateur enregistré avec succès",
  *         @OA\JsonContent(
- *             @OA\Property(property="message", type="string", example="Utilisateur enregistré avec succès"),
+ *            @OA\Property(property="status_code", type="string", example="200"),
+ *             @OA\Property(property="data", type="string", example="your-access-token"),
+ *            @OA\Property(property="message", type="string", example="User created successfully!")
  *         )
  *     ),
  *     @OA\Response(
@@ -63,16 +65,15 @@ class RegisterConrtroller extends Controller
 
 
             $user = new User();
-            $user->name = $request->name;
-            $user->email = $request->email;
-            $user->password =  Hash::make($request->password);
+            $user->name = trim($request->name);
+            $user->email = trim($request->email);
+            $user->password =  trim(Hash::make($request->password));
             $user->save();
-            
-            // assign role to user
+
             Notification::send($user, new WelcomeEmail($user));
 
 
-            return (new ServiceController())->apiResponse(200,$user,"User created successfully!");
+            return (new ServiceController())->apiResponse(200,User::whereEmail($user->email)->first(),"User created successfully!");
 
         }
         catch (\Exception $e)
@@ -82,3 +83,4 @@ class RegisterConrtroller extends Controller
                 
         }
     }
+

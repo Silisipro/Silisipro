@@ -27,7 +27,7 @@ class RegisterRequest extends FormRequest
         return [
             'name' => 'required|min:3|regex:/^\S.*\S$/',
             'email' => 'required|email|unique:users',
-            'password' => 'required|regex:/^(?=.[a-z])(?=.[A-Z])(?=.\d)(?=.[@$!%*?&]).{8,}$/',
+            'password' => 'required|regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&]).{8,}$/',
             'password_confirm' => 'required',
         ];
        
@@ -54,3 +54,4 @@ protected function failedValidation(Validator $validator)
 }
 
 };
+

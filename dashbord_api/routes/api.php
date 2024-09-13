@@ -20,16 +20,6 @@ Route::get('home', function () {
 Route::post('register', [RegisterConrtroller::class, 'register']);
 Route::post('login/google/{email}/{name}', [LoginController::class, 'handleGoogleLogin']);
 Route::post('login', [LoginController::class, 'login']);
-Route::post('logout', [LogoutController::class, 'logout']);
+Route::post('logout', [LogoutController::class, 'logout'])->middleware('auth:sanctum');
 
-Route::get('/role/index', [RoleController::class, 'index']);
-Route::post('/role/create', [RoleController::class, 'create']);
-Route::get('/role/show/{id}', [RoleController::class, 'show']);
-Route::post('/role/update/{id}', [RoleController::class, 'update']);
-Route::post('/role/destroy/{id}', [RoleController::class, 'destroy']);
 
-Route::get('/permission/index', [PermissionController::class, 'index']);
-Route::post('/permission/create', [PermissionController::class, 'create']);
-Route::get('/permission/show/{id}', [PermissionController::class, 'show']);
-Route::post('/permission/update/{id}', [PermissionController::class, 'update']);
-Route::post('/permission/destroy/{id}', [PermissionController::class, 'destroy']);
