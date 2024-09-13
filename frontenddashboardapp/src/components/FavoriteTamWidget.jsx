@@ -35,8 +35,8 @@ const FavoriteTeamWidget = () => {
 
     return (
         <div
-            className="absolute top-2 left-2 lg:w-1/4 h-1/2 bg-white shadow-md rounded-lg overflow-hidden">
-            <div className="p-4 h-full flex flex-col bg-white bg-opacity-80">
+            className="top-2 left-2  bg-white shadow-md rounded-lg overflow-hidden">
+            <div className="p-4 h-[600px] flex flex-col bg-white bg-opacity-80">
                 <h2 className="text-xl font-semibold mb-4">Favorite Team</h2>
                 {error && <p className="text-red-500 mb-4">{error}</p>}
                 <div className="mb-4">
@@ -63,7 +63,7 @@ const FavoriteTeamWidget = () => {
                                     </p>
                                     <p className="mb-2">Creation date: <strong>{data.teams[0].intFormedYear}</strong></p>
                                     <p className="mb-2">Stadium: <strong>{data.teams[0].strStadium}</strong></p>
-                                    <p className="mb-2">Description: <strong>{data.teams[0].strDescriptionEN}</strong></p>
+                                    <p className="mb-2 text-justify">Description: <strong>{data.teams[0].strDescriptionEN}</strong></p>
                                 </>
                             ) : (
                                 <p>No teams found.</p>

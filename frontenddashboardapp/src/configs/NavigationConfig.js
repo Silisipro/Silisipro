@@ -10,5 +10,6 @@ export const navigationLinks = [
     { id: 7, title: 'Favorite team', image: iconsImgs.wallet, path: '/dashboard/dashboard/favorite_team' },
     { id: 8, title: 'Exchange rate', image: iconsImgs.wealth, path: '/dashboard/dashboard/rate' },
     { id: 9, title: 'Astronomie', image: iconsImgs.user, path: '/dashboard/dashboard/atronomie' },
+    { id: 9, title: 'Space', image: iconsImgs.user, path: '/dashboard/dashboard/space' },
     { id: 10, title: 'Settings', image: iconsImgs.gears, path: '/settings' }
 ];

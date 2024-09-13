@@ -92,7 +92,7 @@ const SignupForm = () => {
 
         <div className="mt-6 text-center">
           <p className="text-sm">
-          You already have an account ? <Link to="/login" className="text-indigo-600 hover:underline">sign in</Link>
+          You already have an account ? <Link to="/auth/login" className="text-indigo-600 hover:underline">sign in</Link>
           </p>
         </div>
       </div>
