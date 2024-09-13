@@ -20,6 +20,5 @@ Route::get('home', function () {
 Route::post('register', [RegisterConrtroller::class, 'register']);
 Route::post('login/google/{email}/{name}', [LoginController::class, 'handleGoogleLogin']);
 Route::post('login', [LoginController::class, 'login']);
+Route::get('activeCompte/{email}', [LoginController::class, 'activeCompte']);
 Route::post('logout', [LogoutController::class, 'logout'])->middleware('auth:sanctum');
-
-

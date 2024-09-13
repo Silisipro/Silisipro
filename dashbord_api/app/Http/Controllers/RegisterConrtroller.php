@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\RegisterRequest;
+use App\Jobs\SendEmail;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -11,6 +12,7 @@ use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Models\Role;
 use App\Notifications\WelcomeEmail;
 use Illuminate\Support\Facades\Notification;
+use Illuminate\Support\Facades\Mail;
 
 class RegisterConrtroller extends Controller
 {
@@ -63,24 +65,30 @@ class RegisterConrtroller extends Controller
                 'password' => 'required',
             ]);
 
-
             $user = new User();
             $user->name = trim($request->name);
             $user->email = trim($request->email);
             $user->password =  trim(Hash::make($request->password));
             $user->save();
 
-            Notification::send($user, new WelcomeEmail($user));
+            $link = '';
 
+            $body = 'Activate your account by clicking on this link'.$link;
 
-            return (new ServiceController())->apiResponse(200,User::whereEmail($user->email)->first(),"User created successfully!");
+            $mail = [
+                'title' => 'Account activation link',
+                'body' =>$body
+               ];
+
+               dispatch(new SendEmail($request->email, $mail));
+
+            return (new ServiceController())->apiResponse(200,User::whereEmail($request->email)->first(),"Account created successfully. An activation link has been sent to your email. Please click on it to activate your account!");
 
         }
         catch (\Exception $e)
         {
             return (new ServiceController())->apiResponse(500,[],$e->getMessage());
         }
-                
         }
-    }
 
+    }
