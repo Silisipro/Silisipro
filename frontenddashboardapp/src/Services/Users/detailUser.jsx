@@ -29,7 +29,7 @@ export const ModalUserDetail = ({ isOpen, onClose, user }) => {
     <div className="fixed inset-0 flex items-center justify-center z-50 bg-gray-900 bg-opacity-50">
       <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-md">
         <div className="flex justify-between items-center mb-4">
-          <h2 className="text-xl font-bold">{user.nam}</h2>
+          <h2 className="text-xl font-bold">{user.name}</h2>
           <button
             onClick={onClose}
             className="text-gray-600 hover:text-gray-900"
@@ -38,7 +38,7 @@ export const ModalUserDetail = ({ isOpen, onClose, user }) => {
           </button>
         </div>
         <div className="space-y-4">
-          <p><strong>Organizer:</strong> {user.email}</p>
+          <p><strong>Email:</strong> {user.email}</p>
           
           <p><strong>Created at:</strong> {formatDate(user.created_at)}</p>
         </div>
