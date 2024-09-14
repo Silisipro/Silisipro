@@ -10,7 +10,7 @@ const CalendarComponent = () => {
     const [showModal, setShowModal] = useState(false);
 
     const [isModalOpen, setModalOpen] = useState(false);
-  const [selectedEvent, setSelectedEvent] = useState(null);
+    const [selectedEvent, setSelectedEvent] = useState(null);
 
   const ShowDetail = (event) => {
     setSelectedEvent(event);

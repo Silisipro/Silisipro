@@ -1,25 +1,20 @@
+/* eslint-disable */
+
 import React, { useState, useEffect } from 'react';
-import { useGoogleLogin, googleLogout } from '@react-oauth/google';
+import { useGoogleLogin } from '@react-oauth/google';
 import axios from 'axios';
-import  VideoPlayer   from "./VideoPlayer";
 import './google.css'
 
-function GoogleLogin() {
-  const [userInfo, setUserInfo] = useState(null);
-  const [files, setFiles] = useState([]);
-  const [error, setError] = useState(null);
-  const [user, setUser] = useState(null);
-  const [videoId, setVideoId] = useState('');
+function  ContinueWithGoogle({ isOpen, onClose}) {
+  if (!isOpen) return null;
 
-  const login = useGoogleLogin({
+
+
+  const continuer = useGoogleLogin({
     onSuccess: async (tokenResponse) => {
       const accessToken = tokenResponse.access_token;
-
-      console.log(tokenResponse);
-      localStorage.setItem('token', accessToken);
+      localStorage.setItem('token_access_google', accessToken);
       
-      
-
       try {
     
         const userInfoRes = await axios.get(
@@ -31,22 +26,13 @@ function GoogleLogin() {
             },
           }
         );
-
-        console.log(userInfoRes);
-       
-        
-        setUserInfo(userInfoRes.data); 
-
-        
-        await listDriveFiles(accessToken);
+  
       } catch (error) {
         console.error('Erreur lors de la récupération des données', error);
-        setError('Erreur lors de la récupération des données');
       }
     },
     onError: () => {
       console.log('Erreur lors de la connexion avec Google');
-      setError('Erreur lors de la connexion avec Google');
     },
     scope: [
       'https://www.googleapis.com/auth/drive.readonly',
@@ -56,165 +42,42 @@ function GoogleLogin() {
       
     ].join(' '),
     prompt: 'consent',
+  
   });
 
-  useEffect(() => {
-    const token = localStorage.getItem('token');
-    if (token) {
-     console.log('ok');
-     
-    }
-  }, []);
-  const listDriveFiles = async (accessToken) => {
-    try {
-      const driveResponse = await axios.get(
-        'https://www.googleapis.com/drive/v3/files',
-        {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-          },
-          params: {
-            pageSize: 10,
-            fields: 'nextPageToken, files(id, name)',
-          },
-        }
-      );
-      console.log(driveResponse);
-      
-      setFiles(driveResponse.data.files); 
-    } catch (error) {
-      console.log('Erreur lors de la récupération des fichiers Drive', error);
-      setError('Erreur lors de la récupération des fichiers Drive');
-    }
-  };
-
-
-  const listDriverFiles = async () => {
-    try {
-
-      const token = localStorage.getItem('token');
-      const driveResponse = await axios.get(
-        'https://www.googleapis.com/youtube/v3/playlists?part=snippet,contentDetails&mine=true',
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-          // params: {
-          //   pageSize: 10,
-          //   fields: 'nextPageToken, files(id, name)',
-          // },
-        }
-      );
-      console.log(driveResponse);
-      
-      // setFiles(driveResponse.data.files); 
-    } catch (error) {
-      console.log('Erreur lors de la récupération des fichiers Drive', error);
-      setError('Erreur lors de la récupération des fichiers D');
-    }
-  };
-
-  const listDriveprFiles = async () => {
-    try {
-
-      const token = localStorage.getItem('token');
-      const driveResponse = await axios.get(
-        'https://www.googleapis.com/youtube/v3/videos?part=snippet,contentDetails,statistics&myRating=like',
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-          // params: {
-          //   pageSize: 10,
-          //   fields: 'nextPageToken, files(id, name)',
-          // },
-        }
-      );
-      console.log(driveResponse);
-      
-      // setFiles(driveResponse.data.files); 
-    } catch (error) {
-      console.log('Erreur lors de la récupération des fichiers Drive', error);
-      setError('Erreur lors de la récupération des fichiers D');
-    }
-  };
-
-
-  const videoyoutube = async () => {
-    try {
-
-      const token = localStorage.getItem('token');
-      const response = await axios.get(
-        'https://www.googleapis.com/youtube/v3/videos',
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-          params: {
-            part: 'snippet,contentDetails',
-            id: 'dQw4w9WgXcQ', // Remplacer par l'ID "dQw4w9WgXcQ" de la vidéo
-            key: 'YOUR_API_KEY', // Clé API YouTube
-          },
-        }
-      );
-      console.log(response);
-      setVideoId(response.data.items[0].id)
-
-      console.log(response.data.items[0].snippet);
-      
-      // setFiles(driveResponse.data.files); 
-    } catch (error) {
-      console.log('Erreur lors de la récupération des fichiers Drive', error);
-      setError('Erreur lors de la récupération des fichiers D');
-    }
-  };
-
- 
-  const logout = () => {
-    googleLogout();
-    setUserInfo(null);
-    setFiles([]);
-    setError(null);
-  };
-
   return (
-    <div className="App">
-      {error && <p style={{ color: 'red' }}>{error}</p>} {}
+    <>
+      <div className="fixed inset-0 flex items-center justify-center z-50 bg-gray-900 bg-opacity-50">
+      <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-md">
+      <div className="flex justify-between items-center mb-4">
+        <h2 className="text-xl font-bold">Services Google</h2>
+        <button
+          onClick={onClose}
+          className="text-gray-600 hover:text-gray-900"
+        >
+          ✖
+        </button>
+      </div>
+      <div className="space-y-4">
+        <p><strong>Vous devez accepter les conditions d'utilisation des service google avant acceder a ce service
+          
+          </strong> </p>
+        
+      </div>
+      <div className="mt-6 text-right">
+        <button
+        onClick={() => continuer()}
+          className="bg-blue-600 hover:bg-blue-800 text-white font-bold py-2 px-4 rounded transition duration-300"
+        >
+          Accepter
+        </button>
+      </div>
+      </div>
+      </div>
 
-      {userInfo ? (
-        <div>
-          <h3>Bienvenue, {userInfo.name}</h3>
-          <img src={userInfo.picture} alt="Profil" />
-          <p>Email info : {userInfo.email}</p>
-          <button onClick={logout}>Se déconnecter</button>
-
-          <h4 onClick={videoyoutube}>Fichiers Google Drive :</h4>
-          <ul>
-            {files.length > 0 ? (
-              files.map((file) => (
-                <li key={file.id}>
-                  {file.name} (ID: {file.id})
-                </li>
-              ))
-            ) : (
-              <p>Aucun fichier trouvé.</p>
-            )}
-          </ul>
-
-            {videoId && (
-              <VideoPlayer
-              videoId={videoId}
-              />
-
-  
-            )}
-
-        </div>
-      ) : (
-        <button onClick={() => login()}>Se connecter avec Google</button>
-      )}
-    </div>
+    </>
+    
   );
 }
 
-export default GoogleLogin;
+export default ContinueWithGoogle;

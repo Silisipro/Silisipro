@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { AiFillGoogleCircle } from "react-icons/ai";
 import { Link } from 'react-router-dom';
-import { login, registerGoogle  } from '../store/auth/user';
+import { login, registerGoogle, getService  } from '../store/auth/user';
 import { useDispatch, useSelector } from 'react-redux';
 import { useGoogleLogin, GoogleLogin } from '@react-oauth/google';
 import axios from 'axios';
@@ -58,6 +58,7 @@ const LoginForm = () => {
     if (Object.keys(formErrors).length === 0) {
       dispatch(login(formData)).then((result) => {
         if(result.payload.status_code === 200) {
+          dispatch(getService())
           navigate('/dashboard')
         }
       })
@@ -72,7 +73,7 @@ const LoginForm = () => {
   const handleGoogleSignIn = useGoogleLogin({
     onSuccess: async (tokenResponse) => {
       const accessToken = tokenResponse.access_token;
-      localStorage.setItem('token_access', accessToken);
+      localStorage.setItem('token_access_google', accessToken);
       
       try {
     
@@ -88,6 +89,7 @@ const LoginForm = () => {
   
         if (userInfoRes && userInfoRes.data) {
           dispatch(registerGoogle(userInfoRes.data));
+          dispatch(getService())
           navigate('/dashboard');
         } else {
           console.error("Les données utilisateur ne sont pas disponibles");
@@ -118,7 +120,9 @@ const LoginForm = () => {
 
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
+    <>
+       {!jwtToken && (
+      <div className="min-h-screen flex items-center justify-center bg-gray-100">
       <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
         <h2 className="text-2xl font-bold text-center mb-6">Sign in</h2>
         <form onSubmit={handleSubmit} className="space-y-6">
@@ -183,6 +187,9 @@ const LoginForm = () => {
         </div>
       </div>
     </div>
+    )}
+    </>
+   
   );
 };
 

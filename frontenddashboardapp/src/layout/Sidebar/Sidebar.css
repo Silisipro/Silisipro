@@ -66,6 +66,10 @@
     letter-spacing: 0.03em;
     border: 1px solid transparent;
     transition: var(--transition-default);
+    color: unset;
+    text-decoration: none;
+    color: var(--clr-white);
+    cursor: pointer;
   }
   .nav-link:hover {
     border: 1px solid var(--clr-primar-light);

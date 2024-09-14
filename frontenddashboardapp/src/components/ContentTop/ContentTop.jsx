@@ -1,5 +1,6 @@
 import { iconsImgs } from "../../utils/images";
 import { useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom'; 
 import "./ContentTop.css";
 import { toggleSidebar } from '../../store/sidebar/sidebarSlice'
 
@@ -13,7 +14,12 @@ const ContentTop = () => {
             <button type="button" className="sidebar-toggler"  onClick={() => dispatch(toggleSidebar())}>
                 <img src={ iconsImgs.menu } alt="" />
             </button>
+            <Link
+                to='/' 
+              > 
+              
             <h3 className="content-top-title">Home</h3>
+              </Link>
         </div>
         <div className="content-top-btns">
             <button type="button" className="search-btn content-top-btn">

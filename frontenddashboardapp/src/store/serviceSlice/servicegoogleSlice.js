@@ -1,7 +1,8 @@
+/* eslint-disable */
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-const ACCESS_TOKEN = localStorage.getItem('token_access')
+const ACCESS_TOKEN = localStorage.getItem('token_access_google')
 
 const headers = {
     'Authorization': `Bearer ${ACCESS_TOKEN}`,

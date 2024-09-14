@@ -14,7 +14,7 @@ const Layouts = () => {
 
     return (
         <Suspense fallback={<div>Loading layout...</div>}>
-            <Layout key={jwtToken ? 'dashboard' : 'auth'}>
+            <Layout>
                 <Routes />
             </Layout>
         </Suspense>

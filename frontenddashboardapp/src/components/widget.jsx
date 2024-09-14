@@ -1,33 +1,54 @@
 import React, { useState } from 'react';
+import { activerService, getService, desactiverService } from '../store/auth/user';
+import { useDispatch, useSelector } from 'react-redux';
+import { ToastContainer, toast } from 'react-toastify';
+
+
+
 import youtube from '../../src/assets/images/youtube.png'
-import google from '../../src/assets/images/google.png'
 import drive from '../../src/assets/images/drive.png'
 import money from '../../src/assets/images/money.png'
 import gmail from '../../src/assets/images/gmail.png'
 import calendar from '../../src/assets/images/calendar.png'
-import translate from '../../src/assets/images/translate.png'
 
 const WidgetList = () => {
+
+  const dispatch = useDispatch();
+
   const initialWidgets = [
-    { id: 1, name: 'Google', logo: google },
-    { id: 2, name: 'Youtube', logo: youtube },
-    { id: 3, name: 'Drive', logo: drive },
-    { id: 4, name: 'Taux conversion', logo: money },
-    { id: 5, name: 'FavoriteTamWidget', logo: 'https://via.placeholder.com/50?text=F'},
-    { id: 6, name: 'Agenda', logo: calendar},
-    { id: 7, name: 'Mail', logo: gmail},
-    { id: 8, name: 'Weather', logo: ''}
+    { id: 1, name: 'Youtube', logo: youtube },
+    { id: 2, name: 'Drive', logo: drive },
+    { id: 3, name: 'Exchange rate', logo: money },
+    { id: 4, name: 'FavoriteTamWidget', logo: 'https://via.placeholder.com/50?text=F'},
+    { id: 5, name: 'Calendar', logo: calendar},
+    { id: 6, name: 'Mail', logo: gmail},
+    { id: 7, name: 'Astronomie', logo: 'https://via.placeholder.com/50?text=A'},
+    { id: 8, name: 'Space', logo: 'https://via.placeholder.com/50?text=S'}
   ];
 
-  const [selectedWidgets, setSelectedWidgets] = useState([]);
+  const { services, jwtToken, jwtTokenGoogle} = useSelector((state) => state.user);
 
-  const handleCheckboxChange = (id) => {
-    setSelectedWidgets((prevSelected) =>
-      prevSelected.includes(id)
-        ? prevSelected.filter((widgetId) => widgetId !== id)
-        : [...prevSelected, id]
-    );
+  const handleCheckboxChange = (name) => {
+    if ((!jwtToken || !jwtTokenGoogle)) {
+      
+      toast.error("Veuillez vous connecter avant d'activer ce service" )
+      return
+    }
+
+    
+    const activeService = services?.find((service) => service.service === name);
+    
+    if (activeService) {
+      dispatch(desactiverService(activeService.id));
+    } else {
+     
+      dispatch(activerService(name));
+    }
+    dispatch(getService());
   };
+  
+
+  const isServiceActive = (name) => services?.some((service) => service.service === name);
 
   return (
     <div className="p-4 border border-gray-300 rounded-md">
@@ -42,10 +63,10 @@ const WidgetList = () => {
             />
             <div className="flex items-center justify-between w-full mt-2">
               <button
-                className="bg-green-500 text-white py-1 px-4 rounded-md mr-2"
-                onClick={() => handleCheckboxChange(widget.id)}
+              className={`py-1 px-4 rounded-md mr-2 ${isServiceActive(widget.name) ? 'bg-red-500' : 'bg-green-500'} text-white`}
+                onClick={() => handleCheckboxChange(widget.name)}
               >
-                {selectedWidgets.includes(widget.id) ? 'Désactiver' : 'Activer'}
+                {isServiceActive(widget.name) ? 'Désactiver' : 'Activer'}
               </button>
               <span className="text-lg font-bold text-gray-800 mt-4">
                 {widget.name}
