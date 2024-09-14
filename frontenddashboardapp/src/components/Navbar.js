@@ -6,9 +6,9 @@ const Navbar = () => {
     <nav className="bg-gray-800 p-4">
       <div className="container mx-auto flex items-center justify-between">
   
-        <a href="/" className="text-white text-lg font-semibold">
+        <Link to="/" className="text-white text-lg font-semibold">
           Home
-        </a>
+        </Link>
         
        
         <div className="space-x-4">

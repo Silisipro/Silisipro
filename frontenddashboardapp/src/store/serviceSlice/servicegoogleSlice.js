@@ -1,6 +1,7 @@
 /* eslint-disable */
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
+import { handleRejection } from '../../utils/errorHandlers';
 
 const ACCESS_TOKEN = localStorage.getItem('token_access_google')
 
@@ -325,9 +326,7 @@ export const servicegoogleSlice = createSlice({
             state.event = action.payload.data;
         })
         .addCase(createEvent.rejected, (state, action) => {
-            state.loading = false;
-            state.status==='failed'
-            state.error = action.error.message;
+            handleRejection(state, action);
         })
         .addCase(listEvents.pending, (state) => {
              state.status==='pending'
@@ -340,9 +339,9 @@ export const servicegoogleSlice = createSlice({
             state.events = action.payload.items;
         })
         .addCase(listEvents.rejected, (state, action) => {
-            state.loading = false;
-             state.status==='failed'
-            state.error = action.error.message;
+            handleRejection(state, action);
+            
+          
         })
         .addCase(lireMessages.pending, (state) => {
             state.loading = false;
@@ -352,8 +351,7 @@ export const servicegoogleSlice = createSlice({
             state.messages = action.payload.data;
         })
         .addCase(lireMessages.rejected, (state, action) => {
-            state.loading = false;
-            state.error = action.error.message;
+            handleRejection(state, action);
         })
         .addCase(voirMessageDetail.pending, (state) => {
             state.loading = false;
@@ -363,8 +361,7 @@ export const servicegoogleSlice = createSlice({
             state.messageDetail = action.payload.data;
         })
         .addCase(voirMessageDetail.rejected, (state, action) => {
-            state.loading = false;
-            state.error = action.error.message;
+            handleRejection(state, action);
         })
         // .addCase(driveService.pending, (state) => {
         //     state.loading = false;
@@ -374,8 +371,7 @@ export const servicegoogleSlice = createSlice({
         //     state.driveEvent = action.payload.data;
         // })
         // .addCase(driveService.rejected, (state, action) => {
-        //     state.loading = false;
-        //     state.error = action.error.message;
+        //     handleRejection(state, action);
         // })
         .addCase(driveService.pending, (state) => {
             state.loading = false;
@@ -385,8 +381,7 @@ export const servicegoogleSlice = createSlice({
             state.files = action.payload.data;
         })
         .addCase(driveService.rejected, (state, action) => {
-            state.loading = false;
-            state.error = action.error.message;
+            handleRejection(state, action);
         })
         .addCase(ObtenirFileLink.pending, (state) => {
             state.loading = false;
@@ -396,8 +391,7 @@ export const servicegoogleSlice = createSlice({
             state.filesLink = action.payload.data;
         })
         .addCase(ObtenirFileLink.rejected, (state, action) => {
-            state.loading = false;
-            state.error = action.error.message;
+            handleRejection(state, action);
         })
         .addCase(createFolder.pending, (state) => {
             state.loading = false;
@@ -407,8 +401,7 @@ export const servicegoogleSlice = createSlice({
             state.folder = action.payload.data;
         })
         .addCase(createFolder.rejected, (state, action) => {
-            state.loading = false;
-            state.error = action.error.message;
+            handleRejection(state, action);
         })
         .addCase(listPlaylists.pending, (state) => {
             state.loading = false;
@@ -418,8 +411,7 @@ export const servicegoogleSlice = createSlice({
             state.listsPlay = action.payload.items;
         })
         .addCase(listPlaylists.rejected, (state, action) => {
-            state.loading = false;
-            state.error = action.error.message;
+            handleRejection(state, action);
         })
         .addCase(videoPlaylist.pending, (state) => {
             state.loading = false;
@@ -431,8 +423,7 @@ export const servicegoogleSlice = createSlice({
             state.videoList = action.payload;
         })
         .addCase(videoPlaylist.rejected, (state, action) => {
-            state.loading = false;
-            state.error = action.error.message;
+            handleRejection(state, action);
         })
         .addCase(infoCanal.pending, (state) => {
             state.loading = false;
@@ -442,8 +433,7 @@ export const servicegoogleSlice = createSlice({
             state.infosCanal = action.payload.data;
         })
         .addCase(infoCanal.rejected, (state, action) => {
-            state.loading = false;
-            state.error = action.error.message;
+            handleRejection(state, action);
         })
         .addCase(abonnementsCanal.pending, (state) => {
             state.loading = false;
@@ -453,8 +443,7 @@ export const servicegoogleSlice = createSlice({
             state.abonneCanal = action.payload.data;
         })
         .addCase(abonnementsCanal.rejected, (state, action) => {
-            state.loading = false;
-            state.error = action.error.message;
+            handleRejection(state, action);
         })
         .addCase(videoPopulaires.pending, (state) => {
             state.loading = false;
@@ -464,8 +453,7 @@ export const servicegoogleSlice = createSlice({
             state.vidPopulaires = action.payload.data;
         })
         .addCase(videoPopulaires.rejected, (state, action) => {
-            state.loading = false;
-            state.error = action.error.message;
+            handleRejection(state, action);
         })
         .addCase(tendances.pending, (state) => {
             state.loading = false;
@@ -475,8 +463,7 @@ export const servicegoogleSlice = createSlice({
             state.tendanceinfo = action.payload.data;
         })
         .addCase(tendances.rejected, (state, action) => {
-            state.loading = false;
-            state.error = action.error.message;
+            handleRejection(state, action);
         })
         .addCase(detailVideos.pending, (state) => {
             state.loading = false;
@@ -486,8 +473,7 @@ export const servicegoogleSlice = createSlice({
             state.videDetail = action.payload.data;
         })
         .addCase(detailVideos.rejected, (state, action) => {
-            state.loading = false;
-            state.error = action.error.message;
+            handleRejection(state, action);
         })
         .addCase(listLikes.pending, (state) => {
             state.loading = false;
@@ -497,8 +483,7 @@ export const servicegoogleSlice = createSlice({
             state.listVideoLiks = action.payload.data;
         })
         .addCase(listLikes.rejected, (state, action) => {
-            state.loading = false;
-            state.error = action.error.message;
+            handleRejection(state, action);
         });
     }
 });

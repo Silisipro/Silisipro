@@ -1,18 +1,21 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import Navbar from '../../components/Navbar'
-import GoogleLogin from '../auth/login/GoogleLogin';
 import Widget from '../../components/widget'
 import DateWidget from '../../components/DateWidget'
-import WeatherWidget from '../../components/WeatherWidget'
-// import Sidebar from './layout/Sidebar/Sidebar';
-// import Content from './layout/Content/Content';
 
 
 function Home() {
-  return (
 
+
+  const { isAdmin, isLoggedIn} = useSelector((state) => state.user);
+
+
+  return (
     <div className="App">
-      <div> <Navbar /> </div>
+      {!isLoggedIn && (
+        <div> <Navbar /> </div>
+      ) }
       <div>   
         <DateWidget />
       </div> <br />

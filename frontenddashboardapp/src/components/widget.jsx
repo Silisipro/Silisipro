@@ -29,7 +29,10 @@ const WidgetList = () => {
   const { services, jwtToken, jwtTokenGoogle} = useSelector((state) => state.user);
 
   const handleCheckboxChange = (name) => {
-    if ((!jwtToken || !jwtTokenGoogle)) {
+
+
+    
+    if (jwtToken ==null || !jwtTokenGoogle ==null) {
       
       toast.error("Veuillez vous connecter avant d'activer ce service" )
       return

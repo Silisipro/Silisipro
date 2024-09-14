@@ -82,4 +82,14 @@ export const protectedRoutes = [
         path: `/dashboard/dashboard/:playlistId`,
         component: React.lazy(() => import('../pages/dashboard/youtube/PlaylistVideos')),
     },
+    {
+        key: 'dashboard.user',
+        path: `/dashboard/dashboard/user`,
+        component: React.lazy(() => import('../pages/dashboard/user/index')),
+    },
+    {
+        key: 'dashboard.admin',
+        path: `/dashboard/dashboard/admin`,
+        component: React.lazy(() => import('../pages/dashboard/user/indexAmin')),
+    },
 ]

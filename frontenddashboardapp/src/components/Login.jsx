@@ -15,10 +15,8 @@ const LoginForm = () => {
   const navigate = useNavigate();
   // const user = useSelector((state) => state.user);
   const [userInfo, setUserInfo] = useState(null);
-  const [files, setFiles] = useState([]);
   const [error, setError] = useState(null);
-  const [user, setUser] = useState(null);
-  const [videoId, setVideoId] = useState('');
+ 
   const authentiqueState = useSelector((state) => state.user);
   const jwtToken = authentiqueState ? authentiqueState.jwtToken : null;
 
@@ -60,6 +58,7 @@ const LoginForm = () => {
         if(result.payload.status_code === 200) {
           dispatch(getService())
           navigate('/dashboard')
+          window.location.reload()
         }
       })
         .catch((err) => {
@@ -91,12 +90,13 @@ const LoginForm = () => {
           dispatch(registerGoogle(userInfoRes.data));
           dispatch(getService())
           navigate('/dashboard');
+          window.location.reload()
         } else {
           console.error("Les données utilisateur ne sont pas disponibles");
         }        
         setUserInfo(userInfoRes.data);
         const information = userInfoRes.data;
-        localStorage.setItem('userInfo', information) 
+        localStorage.setItem('user_info', JSON.stringify(information))
   
       } catch (error) {
         console.error('Erreur lors de la récupération des données', error);
@@ -124,7 +124,10 @@ const LoginForm = () => {
        {!jwtToken && (
       <div className="min-h-screen flex items-center justify-center bg-gray-100">
       <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
-        <h2 className="text-2xl font-bold text-center mb-6">Sign in</h2>
+      <Link to="/" className="text-2xl font-bold text-center mb-6">
+      <h2 className="text-2xl font-bold text-center mb-6">Sign in</h2>
+        </Link>
+       
         <form onSubmit={handleSubmit} className="space-y-6">
           <div>
             <label htmlFor="email" className="block text-sm font-medium text-gray-700">

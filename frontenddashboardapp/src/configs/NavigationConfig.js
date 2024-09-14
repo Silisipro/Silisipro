@@ -11,5 +11,5 @@ export const navigationLinks = [
     { id: 8,  name: 'Exchange rate', title: 'Exchange rate', image: iconsImgs.wealth, path: '/dashboard/dashboard/rate' },
     { id: 9,  name: 'Astronomie', title: 'Astronomie', image: iconsImgs.user, path: '/dashboard/dashboard/atronomie' },
     { id: 10, name: 'Space', title: 'Space', image: iconsImgs.user, path: '/dashboard/dashboard/space' },
-    { id: 11,  name: 'Settings', title: 'Settings', image: iconsImgs.gears, path: '/settings' }
+    { id: 11,  name: 'User', title: 'manage user', image: iconsImgs.gears, path: '/dashboard/dashboard/user' }
 ];

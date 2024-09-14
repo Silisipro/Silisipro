@@ -139,7 +139,9 @@ const SignupForm = () => {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
       <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
-        <h2 className="text-2xl font-bold text-center mb-6">Sign up</h2>
+      <Link to="/" className="text-2xl font-bold text-center mb-6">
+      <h2 className="text-2xl font-bold text-center mb-6">Sign up</h2>
+        </Link>
         <form onSubmit={handleSignup} className="space-y-6">
           <div>
             <label htmlFor="name" className="block text-sm font-medium text-gray-700">

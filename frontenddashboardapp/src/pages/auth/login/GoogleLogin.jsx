@@ -26,6 +26,15 @@ function  ContinueWithGoogle({ isOpen, onClose}) {
             },
           }
         );
+        console.log(userInfoRes);
+
+        if (userInfoRes && userInfoRes.data) {
+          localStorage.setItem('user_info', JSON.stringify(userInfoRes.data))
+        }
+        
+
+        onClose()
+        window.location.reload()
   
       } catch (error) {
         console.error('Erreur lors de la récupération des données', error);

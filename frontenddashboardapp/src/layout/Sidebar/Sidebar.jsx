@@ -2,8 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { personsImgs } from '../../utils/images';
 import { navigationLinks } from '../../configs/NavigationConfig';
-import { getService} from '../../store/auth/user';
-import { Link, useLocation , useNavigate } from 'react-router-dom'; 
+import { useLocation , useNavigate } from 'react-router-dom'; 
 import "./Sidebar.css";
 import { logout  } from '../../store/auth/user';
 import { useDispatch } from 'react-redux';
@@ -14,7 +13,10 @@ import  ContinueWithGoogle from '../../pages/auth/login/GoogleLogin'
 
 const Sidebar = () => {
 
+
+
   const [isModalOpen, setModalOpen] = useState(false);
+  const [userInfo, setUserInfo] = useState(null);
 
   const isSidebarOpen = useSelector((state) => state.sidebar.isSidebarOpen);
   const dispatch = useDispatch();
@@ -39,10 +41,10 @@ const Sidebar = () => {
     dispatch(logout()).then((result) => {
       if(result.payload.status_code) {
         navigate('/auth/login')
+        window.location.reload()
       }
     });
   }
-
 
  
   const activeNavigationLinks = isAdmin
@@ -53,10 +55,9 @@ const Sidebar = () => {
 
 
       const consentir = (path) => {
-       console.log(path);
-       
-        if (!jwtTokenGoogle) {
-          if (path==='/dashboard') {
+     
+        if (jwtTokenGoogle == null) {
+          if (path==='/dashboard' || path==='/dashboard/dashboard/weather' || path==='/dashboard/dashboard/user' ) {
             navigate(path);
 
             return
@@ -67,6 +68,24 @@ const Sidebar = () => {
         }
       };
 
+
+      useEffect(() => {
+
+        const userLogger = localStorage.getItem('userLogger') || localStorage.getItem('user_info')
+    
+        if (userLogger) {
+          try {
+          
+            const parsedUserInfos = JSON.parse(userLogger);
+            setUserInfo(parsedUserInfos); 
+          } catch (error) {
+            console.error("Error");
+          }
+        } else {
+          console.log("no data");
+        }
+      }, [])
+
   return (
     <>
       <ContinueWithGoogle isOpen={isModalOpen} onClose={closeConsent} />
@@ -75,7 +94,11 @@ const Sidebar = () => {
           <div className="info-img img-fit-cover">
             <img src={personsImgs.person_two} alt="profile image" />
           </div>
-          <span className="info-name">Sylvestre</span>
+          { userInfo && (
+            <span className="info-name">{userInfo.name.substring(0,8)}...</span>
+          )
+          
+          }
         </div>
 
         <nav className="navigation">
@@ -83,7 +106,6 @@ const Sidebar = () => {
             {activeNavigationLinks.map((navigationLink) => (
               <li className="nav-item" key={navigationLink.id}>
                 <div
-                  // to={navigationLink.path}
                   onClick={() => consentir(navigationLink.path)}
                   className={`nav-link ${location.pathname === navigationLink.path ? 'active' : ''}`}
 
