@@ -72,8 +72,10 @@ class UserServiceController extends Controller
             $id = $request->query('id')??Auth::user()->id;
 
             if($request->query('id')){
-                if(!$this->verifyAdmin())
-                return (new ServiceController())->apiResponse(404,[],"Admin only can see another person service");
+                if(!$this->verifyAdmin()){
+
+                    return (new ServiceController())->apiResponse(404,[],"Admin only can see another person service");
+                }
             }
 
             foreach(UserService::where('user_id',$id)->get() as $service){
@@ -110,6 +112,10 @@ class UserServiceController extends Controller
                 return (new ServiceController())->apiResponse(404,[],"Service not found");
             }
             $users = [];
+            if(!$this->verifyAdmin()){
+
+                return (new ServiceController())->apiResponse(404,[],"Admin only can see person who enabled a service");
+            }
             foreach(UserService::all() as $service){
                 if($service->service == $serviceName){
                     $users[] = User::whereId($service->user_id)->first();
