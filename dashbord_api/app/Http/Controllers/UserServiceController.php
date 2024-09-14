@@ -127,7 +127,7 @@ class UserServiceController extends Controller
                 'count' => count($users)
             ];
 
-            return (new ServiceController())->apiResponse(200,$data,"Liste et nombre des utilisateurs par service");
+            return (new ServiceController())->apiResponse(200,$data,"List and number of user by service");
         }
         catch (\Exception $e)
         {
