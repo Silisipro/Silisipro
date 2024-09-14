@@ -11,13 +11,11 @@ const Cards = () => {
       const timerId = setInterval(() => {
         setCurrentDate(new Date());
       }, 1000);
-       // Met à jour chaque seconde
-  
-      // Nettoie l'intervalle lorsque le composant est démonté
+     
       return () => clearInterval(timerId);
     }, []);
   
-    // Formater la date
+   
     const formatDate = (date) => {
       const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
       return date.toLocaleDateString('fr-FR', options);

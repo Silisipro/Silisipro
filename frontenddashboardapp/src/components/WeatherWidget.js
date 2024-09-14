@@ -4,10 +4,8 @@ import axios from 'axios';
 
 const WeatherWidget = ({ center, larg, marge,flex, total}) => {
   const [weather, setWeather] = useState(null);
-  const [city, setCity] = useState("Benin"); // Ville par défaut
+  const [city, setCity] = useState("Benin");
   const [error, setError] = useState("");
-
-//   const apiKey = '_API_KEY';
 
   useEffect(() => {
     fetchWeatherData(city);

@@ -16,7 +16,7 @@ const WidgetList = () => {
     { id: 5, name: 'FavoriteTamWidget', logo: 'https://via.placeholder.com/50?text=F'},
     { id: 6, name: 'Agenda', logo: calendar},
     { id: 7, name: 'Mail', logo: gmail},
-    // { id: 8, name: 'Traduction', logo: translate}
+    { id: 8, name: 'Weather', logo: ''}
   ];
 
   const [selectedWidgets, setSelectedWidgets] = useState([]);

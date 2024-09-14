@@ -10,10 +10,6 @@ export const navigationLinks = [
     { id: 7, title: 'Favorite team', image: iconsImgs.wallet, path: '/dashboard/dashboard/favorite_team' },
     { id: 8, title: 'Exchange rate', image: iconsImgs.wealth, path: '/dashboard/dashboard/rate' },
     { id: 9, title: 'Astronomie', image: iconsImgs.user, path: '/dashboard/dashboard/atronomie' },
-<<<<<<< HEAD
-    { id: 10, title: 'Settings', image: iconsImgs.gears, path: '/settings' },
-=======
     { id: 10, title: 'Space', image: iconsImgs.user, path: '/dashboard/dashboard/space' },
     { id: 11, title: 'Settings', image: iconsImgs.gears, path: '/settings' }
->>>>>>> c14b52a6270126ed7db4c361df25569d2eefec41
 ];

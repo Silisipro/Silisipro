@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-const ACCESS_TOKEN = 'ya29.a0AcM612zeB_ZbedEuvXSTCl_eyVylEZBFFvVXvF5oRt6y58x6OX5XvxMJoobjdUxljP6_nwUIYVNMu57idmhxwEMK6hBNF83kXt9ryvrc7HE9e_GbroI0AXSpORP5lJ6rUix4aTSq8AZC4MAzpY8qJ4m72kkyBDApbAaCgYKAcoSARESFQHGX2MiFSeRzfqDiAH9cWi3RyrbWw0169';
+const ACCESS_TOKEN = localStorage.getItem('token_access')
 
 const headers = {
     'Authorization': `Bearer ${ACCESS_TOKEN}`,

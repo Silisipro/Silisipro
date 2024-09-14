@@ -3,7 +3,7 @@ import Input from './Input';
 import Button from './Button';
 
 const Form = () => {
-  // État local pour les données du formulaire
+ 
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -11,7 +11,7 @@ const Form = () => {
     password_confirmation: ''
   });
 
-  // Fonction pour gérer les changements dans les champs du formulaire
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData(prevData => ({
@@ -20,11 +20,11 @@ const Form = () => {
     }));
   };
 
-  // Fonction pour gérer la soumission du formulaire
+
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(formData);
-    // Ajoutez ici la logique pour traiter les données du formulaire
+  
   };
 
   return (
