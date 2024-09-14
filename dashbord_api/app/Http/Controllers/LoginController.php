@@ -96,7 +96,7 @@ class LoginController extends Controller
             (new LoginController())->activeCompte($email);
             $role = 0;
 
-            $services = (new UserServiceController())->getUserService($user->id);
+            $services = (new UserServiceController())->getServiceById($user->id);
 
             $token = $user->createToken('auth_token')->plainTextToken;
 
@@ -170,7 +170,7 @@ class LoginController extends Controller
                 return (new ServiceController())->apiResponse(404,[],"Please verify your email first.  An activation link has been sent to your email. Please click on it to activate your account!");
             }
 
-            $services = (new UserServiceController())->getUserService($user->id);
+            $services = (new UserServiceController())->getServiceById($user->id);
 
             $role = $user->is_admin;
             if (Hash::check($password, $user->password)) {
@@ -178,7 +178,7 @@ class LoginController extends Controller
                 return (new ServiceController())->apiResponse(200,['user'=>$user, 'token'=>$token,'is_admin'=>$role, "services" => $services],"Login successful!");
 
             } else {
-                return (new ServiceController())->apiResponse(401,[],"Incorrect password!");
+                return (new ServiceController())->apiResponse(404,[],"Incorrect password!");
             }
         } catch (\Exception $e) {
 
@@ -197,8 +197,6 @@ class LoginController extends Controller
             $user->email_verified_at = now();
             $user->save();
             return redirect('https://app.dashboard.e-coye.com/');
-
-            // return (new ServiceController())->apiResponse(200,$user,"Compte validé avec succès!");
         }
         catch (\Exception $e)
         {
