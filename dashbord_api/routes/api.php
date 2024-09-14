@@ -36,6 +36,7 @@ Route::post('users/AssignRoleAdminToUser/{id}', [ManageUserController::class,   
 Route::post('users/RevokeRoleAdminToUser/{id}', [ManageUserController::class, 'RevokeRoleAdminToUser'])->middleware('auth:sanctum');
 Route::get('users/getStatics', [ManageUserController::class, 'getStatics'])->middleware('auth:sanctum');
 Route::get('users/show/{id}', [ManageUserController::class, 'show'])->middleware('auth:sanctum');
+Route::post('users/destroy/{id}', [ManageUserController::class, 'destroy'])->middleware('auth:sanctum');
 
 
 
