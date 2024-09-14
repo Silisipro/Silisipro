@@ -96,6 +96,22 @@ class ManageUserController extends Controller
         }
     }
 
+    public function destroy($id){
+        try
+        {
+            $user = User::whereId($id)->first();
+            if(!$user){
+                return (new ServiceController())->apiResponse(404,[],"User not found");
+            }
+           $user->delete();
+            return (new ServiceController())->apiResponse(200,[],"User deleted successfully");
+        }
+        catch (\Exception $e)
+        {
+            return (new ServiceController())->apiResponse(500,[],$e->getMessage());
+        }
+    }
+
     public function getStatics(){
         try
         {
