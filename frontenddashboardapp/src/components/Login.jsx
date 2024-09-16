@@ -92,7 +92,6 @@ const LoginForm = () => {
           dispatch(registerGoogle(userInfoRes.data));
           dispatch(getService())
           navigate('/dashboard');
-          window.location.reload()
         } else {
           console.error("Les données utilisateur ne sont pas disponibles");
         }        

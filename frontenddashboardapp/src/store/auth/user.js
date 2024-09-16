@@ -336,7 +336,7 @@ const sidebarSlice = createSlice({
         } else {
           toast.error(action.payload?.message)
         }
-       
+        window.location.reload()
       })
       .addCase(registerGoogle.rejected, (state, action) => {
         state.loading = false;
