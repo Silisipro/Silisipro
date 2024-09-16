@@ -18,6 +18,11 @@ const SignupForm = () => {
   const [user, setUser] = useState(null);
   const [videoId, setVideoId] = useState('');
 
+
+
+  const authentiqueState = useSelector((state) => state.user);
+  const jwtToken = authentiqueState ? authentiqueState.jwtToken : null;
+
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -119,6 +124,7 @@ const SignupForm = () => {
 
 
   const handleSignup = (e) => {
+    localStorage.clear()
     e.preventDefault();
     const formErrors = validateForm();
     if (Object.keys(formErrors).length === 0) {
@@ -137,7 +143,10 @@ const SignupForm = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
+    <>
+
+    {!jwtToken && (
+      <div className="min-h-screen flex items-center justify-center bg-gray-100">
       <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
       <Link to="/" className="text-2xl font-bold text-center mb-6">
       <h2 className="text-2xl font-bold text-center mb-6">Sign up</h2>
@@ -233,6 +242,9 @@ const SignupForm = () => {
         </div>
       </div>
     </div>
+    )}
+    
+    </>
   );
 };
 

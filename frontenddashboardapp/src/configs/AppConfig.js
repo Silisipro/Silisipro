@@ -1,6 +1,6 @@
 
 
-export const APP_NAME = 'louer_meublee';
+export const APP_NAME = 'dashbord';
 export const APP_PREFIX_PATH = '/dashboard';
 export const AUTH_PREFIX_PATH = '/auth';
 export const REDIRECT_URL_KEY = 'redirect'

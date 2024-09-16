@@ -26,7 +26,7 @@ const WidgetList = () => {
     { id: 8, name: 'Space', logo: 'https://via.placeholder.com/50?text=S'}
   ];
 
-  const { services, jwtToken, jwtTokenGoogle} = useSelector((state) => state.user);
+  const { services, isAdmin, jwtToken, jwtTokenGoogle} = useSelector((state) => state.user);
 
   const handleCheckboxChange = (name) => {
 
@@ -55,7 +55,7 @@ const WidgetList = () => {
 
   return (
     <div className="p-4 border border-gray-300 rounded-md">
-      <h2 className="text-xl font-semibold mb-4">Liste des Widgets</h2>
+      <h2 className="text-xl font-semibold mb-4">Widgets lists</h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
         {initialWidgets.map((widget) => (
           <div key={widget.id} className="flex flex-col items-center border border-gray-300 rounded-md p-4 bg-white shadow-md">
@@ -65,12 +65,14 @@ const WidgetList = () => {
               className="w-16 h-16 mb-2"
             />
             <div className="flex items-center justify-between w-full mt-2">
-              <button
-              className={`py-1 px-4 rounded-md mr-2 ${isServiceActive(widget.name) ? 'bg-red-500' : 'bg-green-500'} text-white`}
-                onClick={() => handleCheckboxChange(widget.name)}
-              >
-                {isServiceActive(widget.name) ? 'Désactiver' : 'Activer'}
-              </button>
+              {isAdmin == false && (
+                <button
+                className={`py-1 px-4 rounded-md mr-2 ${isServiceActive(widget.name) ? 'bg-red-500' : 'bg-green-500'} text-white`}
+                  onClick={() => handleCheckboxChange(widget.name)}
+                >
+                  {isServiceActive(widget.name) ? 'Désactiver' : 'Activer'}
+                </button>
+              )}
               <span className="text-lg font-bold text-gray-800 mt-4">
                 {widget.name}
               </span>

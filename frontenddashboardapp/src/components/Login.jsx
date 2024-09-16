@@ -51,6 +51,7 @@ const LoginForm = () => {
   };
 
   const handleSubmit = (e) => {
+    localStorage.clear()
     e.preventDefault();
     const formErrors = validateForm();
     if (Object.keys(formErrors).length === 0) {
@@ -71,6 +72,7 @@ const LoginForm = () => {
 
   const handleGoogleSignIn = useGoogleLogin({
     onSuccess: async (tokenResponse) => {
+      localStorage.clear()
       const accessToken = tokenResponse.access_token;
       localStorage.setItem('token_access_google', accessToken);
       

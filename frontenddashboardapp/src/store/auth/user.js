@@ -265,7 +265,7 @@ const initialState = {
     jwtToken: localStorage.getItem('token_access') || null, 
     jwtTokenGoogle: localStorage.getItem('token_access_google') || null, 
     connecte : localStorage.getItem('est_conneter') || false,
-    isAdmin: localStorage.getItem('meninolonin') || true,
+    isAdmin: localStorage.getItem('meninolonin') === 'true' || false,
     userInfos: localStorage.getItem('userInfo') || '',
     register: [],
     login: [],

@@ -17,6 +17,7 @@ const Sidebar = () => {
 
   const [isModalOpen, setModalOpen] = useState(false);
   const [userInfo, setUserInfo] = useState(null);
+  const [activeNavigationLinks, setActiveNavigationLinks] = useState([]);
 
   const isSidebarOpen = useSelector((state) => state.sidebar.isSidebarOpen);
   const dispatch = useDispatch();
@@ -26,6 +27,26 @@ const Sidebar = () => {
 
   const { services, isAdmin, jwtTokenGoogle} = useSelector((state) => state.user);
 
+
+  useEffect(() => {
+ 
+    if (services && services.length > 0) {
+      const activeNs = isAdmin == true
+        ? navigationLinks
+        : navigationLinks.filter((navigationLink) =>
+            services.some((service) => {
+              
+              return (
+                service.service.toLowerCase().replace(/\s/g, '') ===
+                navigationLink.name.toLowerCase().replace(/\s/g, '')
+              );
+            })
+          );
+  
+      setActiveNavigationLinks(activeNs);
+    }
+  }, [isAdmin, services]);
+   
 
 
   const consentShow = () => {
@@ -37,7 +58,6 @@ const Sidebar = () => {
   };
 
   const handleLogout = () => {
-    console.log('logout')
     dispatch(logout()).then((result) => {
       if(result.payload.status_code) {
         navigate('/auth/login')
@@ -45,14 +65,7 @@ const Sidebar = () => {
       }
     });
   }
-
- 
-  const activeNavigationLinks = isAdmin
-    ? navigationLinks 
-    : navigationLinks?.filter((navigationLink) =>
-        services?.some((service) => service.service === navigationLink.name)
-      );
-
+  
 
       const consentir = (path) => {
      

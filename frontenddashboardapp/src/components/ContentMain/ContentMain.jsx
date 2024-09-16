@@ -19,7 +19,7 @@ const ContentMain = () => {
             <Subscriptions />
               <Report />
         </div>
-        {isAdmin && (
+        {isAdmin == true && (
           <div className="content-grid-two">
           <Budget />
           <div className="grid-two-item">
