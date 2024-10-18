@@ -5,7 +5,9 @@ import { login, registerGoogle, getService  } from '../store/auth/user';
 import { useDispatch, useSelector } from 'react-redux';
 import { useGoogleLogin, GoogleLogin } from '@react-oauth/google';
 import axios from 'axios';
+import {PhoneNumber} from 'react-pays-loving/dist/bundle';
 import { useNavigate } from 'react-router-dom';
+import 'react-pays-loving/dist/images/Albania.png';
 
 
 
@@ -19,6 +21,12 @@ const LoginForm = () => {
  
   const authentiqueState = useSelector((state) => state.user);
   const jwtToken = authentiqueState ? authentiqueState.jwtToken : null;
+
+  const [countryCode, setCountryCode] = useState('');
+
+  const handlePhoneCodeChange = (code) => {
+    setCountryCode(code);
+  };
 
 
   const [formData, setFormData] = useState({
@@ -161,6 +169,13 @@ const LoginForm = () => {
               placeholder="••••••••"
         
             />
+            {errors.password && <p className="text-red-500 text-sm">{errors.password}</p>}
+          </div>
+
+          <div>
+                <h1>Sélectionne un code de pays</h1>
+            <PhoneNumber onChange={handlePhoneCodeChange} />
+            <p>Code de pays sélectionné : {countryCode}</p>
             {errors.password && <p className="text-red-500 text-sm">{errors.password}</p>}
           </div>
 
