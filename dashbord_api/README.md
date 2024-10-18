@@ -1,66 +1,71 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Projet d'Activation de Services Google et Externes
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Ce projet est une application React qui permet d'activer divers services Google ainsi que d'autres services externes, tels que la météo, les taux de change, etc. L'application est également connectée à une API Laravel qui gère l'inscription des utilisateurs et l'activation des services.
 
-## About Laravel
+## Services disponibles
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Voici les services disponibles dans l'application :
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+- **Home** : Accueil du tableau de bord
+- **Weather** : Service météo
+- **Google Drive** : Intégration de Google Drive
+- **Calendar** : Intégration du calendrier
+- **Youtube** : Intégration de YouTube
+- **Mail** : Service de messagerie
+- **Favorite Team** : Gestion des équipes favorites
+- **Exchange rate** : Taux de change
+- **Astronomy** : Informations sur l'astronomie
+- **Space** : Exploration spatiale
+- **User Management** : Gestion des utilisateurs
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## Commandes disponibles
 
-## Learning Laravel
+Dans le répertoire du projet, vous pouvez exécuter les commandes suivantes :
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+### `npm start`
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+Lance l'application en mode développement.  
+Ouvrez [http://localhost:3000](http://localhost:3000) pour la voir dans votre navigateur.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### `npm run build`
 
-## Laravel Sponsors
+Construit l'application pour la production dans le dossier `build`.  
+Le projet est prêt à être déployé.
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+## API Backend
 
-### Premium Partners
+Le backend de ce projet est construit avec Laravel. L'API permet de gérer l'inscription des utilisateurs et l'activation des services. L'interaction entre le frontend (React) et le backend (Laravel) est entièrement gérée via des requêtes API.
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+## Dépendances principales
 
-## Contributing
+- **React** : Framework JavaScript pour la création d'UI.
+- **Laravel** : Framework PHP pour la gestion du backend et de l'API.
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
 
-## Code of Conduct
+## Installation
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+1. Clonez ce dépôt.
+2. Allez dans dossier frontenddashboardapp 
+3. Installez les dépendances avec `npm install`.
+4. Lancez l'application en utilisant `npm start` 
+5. Allez dans dossier dashbord_api
+6. Installez les dépendances avec `composer install`.
+7. Configurer le fichier d'environnement .env `cp .env.example .env`
+8. Générer la clé d'application `php artisan key:generate` 
+9. Configurer la base de données `php artisan migrate` 
+10. Lancez aussi l'api avec `php artisan serve` 
 
-## Security Vulnerabilities
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+## Activation de Google API
+Pour permettre l'inscription via Google et activer les services Google (comme Google Drive), vous devez configurer votre projet sur la Google Developer Console.
 
-## License
+Étapes pour configurer Google API :
+1. Créer un projet sur la Google Developer Console.
+2. Activer les APIs nécessaires (Google Drive, Calendar, etc.).
+3. Configurer les informations d'authentification : Créez des identifiants OAuth 2.0 (ID client et secret) pour application.
+4. Ajouter les URLs de redirection autorisées : Indiquez l'URL de l'application (http://localhost:3000 en développement).
+5. Télécharger les fichiers de configuration (credentials.json ou autre) et les intégrer dans le projet pour gérer l'authentification avec goolgle
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+## Auteur
+Sylvestre HONFO
