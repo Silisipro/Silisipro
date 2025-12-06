@@ -5,7 +5,8 @@
 
 <h2> 🚀 &nbsp;Some Tools I Have Used and Learned</h2>
 <p align="center">
-<img src="https://www.credly.com/badges/9269cc1b-b53f-4260-ae8b-b8b09af47062/public_url" alt="vscode" width="45" height="45"/>
+<img src="https://github.com/Silisipro/Silisipro/blob/feat-merge/frontenddashboardapp/public/ibm-full-stack-javascript-developer-professional-ce%20(2).png" alt="vscode" width="200" height="200"/>
+<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/bash/bash-original.svg" alt="bash" width="45" height="45"/>
 
 </p>
 
