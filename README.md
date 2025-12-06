@@ -5,10 +5,19 @@
 
 <h2> 🚀 &nbsp;Some Tools I Have Used and Learned</h2>
 <p align="center">
-<img src="https://github.com/Silisipro/Silisipro/blob/feat-merge/frontenddashboardapp/public/ibm-full-stack-javascript-developer-professional-ce%20(2).png" alt="ibm-full-stack-javascript-developer-professional" width="150" height="150"/>
-<img src="https://github.com/Silisipro/Silisipro/blob/feat-merge/frontenddashboardapp/public/application-development-using-microservices-and-ser%20(1).png" alt="application-development-using-microservices-and-ser" width="150" height="150"/>
+  <a href="LIEN_DU_CERTIFICAT_1" target="_blank">
+    <img src="https://github.com/Silisipro/Silisipro/blob/feat-merge/frontenddashboardapp/public/ibm-full-stack-javascript-developer-professional-ce%20(2).png" 
+         alt="ibm-full-stack-javascript-developer-professional" 
+         width="150" height="150"/>
+  </a>
 
+  <a href="https://www.credly.com/badges/efcc580c-15fc-4549-8db6-82ebdc68a94c/public_url" target="_blank">
+    <img src="https://github.com/Silisipro/Silisipro/blob/feat-merge/frontenddashboardapp/public/application-development-using-microservices-and-ser%20(1).png" 
+         alt="application-development-using-microservices-and-ser" 
+         width="150" height="150"/>
+  </a>
 </p>
+
 
 ![Snake animation](https://github.com/thepiyushmalhotra/thepiyushmalhotra/blob/output/github-contribution-grid-snake.svg)
 
