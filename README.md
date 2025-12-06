@@ -16,5 +16,38 @@
          alt="application-development-using-microservices-and-ser" 
          width="150" height="150"/>
   </a>
+  <a href="https://www.credly.com/badges/efcc580c-15fc-4549-8db6-82ebdc68a94c/public_url" target="_blank">
+    <img src="https://github.com/Silisipro/Silisipro/blob/feat-merge/frontenddashboardapp/public/application-development-using-microservices-and-ser%20(1).png" 
+         alt="application-development-using-microservices-and-ser" 
+         width="150" height="150"/>
+  </a>
+  <a href="https://www.credly.com/badges/efcc580c-15fc-4549-8db6-82ebdc68a94c/public_url" target="_blank">
+    <img src="https://github.com/Silisipro/Silisipro/blob/feat-merge/frontenddashboardapp/public/application-development-using-microservices-and-ser%20(1).png" 
+         alt="application-development-using-microservices-and-ser" 
+         width="150" height="150"/>
+  </a>
+</p>
+<p align="center">
+  <a href="https://www.credly.com/badges/9269cc1b-b53f-4260-ae8b-b8b09af47062/public_url" target="_blank">
+    <img src="https://github.com/Silisipro/Silisipro/blob/feat-merge/frontenddashboardapp/public/ibm-full-stack-javascript-developer-professional-ce%20(2).png" 
+         alt="ibm-full-stack-javascript-developer-professional" 
+         width="150" height="150"/>
+  </a>
+
+  <a href="https://www.credly.com/badges/efcc580c-15fc-4549-8db6-82ebdc68a94c/public_url" target="_blank">
+    <img src="https://github.com/Silisipro/Silisipro/blob/feat-merge/frontenddashboardapp/public/application-development-using-microservices-and-ser%20(1).png" 
+         alt="application-development-using-microservices-and-ser" 
+         width="150" height="150"/>
+  </a>
+  <a href="https://www.credly.com/badges/efcc580c-15fc-4549-8db6-82ebdc68a94c/public_url" target="_blank">
+    <img src="https://github.com/Silisipro/Silisipro/blob/feat-merge/frontenddashboardapp/public/application-development-using-microservices-and-ser%20(1).png" 
+         alt="application-development-using-microservices-and-ser" 
+         width="150" height="150"/>
+  </a>
+  <a href="https://www.credly.com/badges/efcc580c-15fc-4549-8db6-82ebdc68a94c/public_url" target="_blank">
+    <img src="https://github.com/Silisipro/Silisipro/blob/feat-merge/frontenddashboardapp/public/application-development-using-microservices-and-ser%20(1).png" 
+         alt="application-development-using-microservices-and-ser" 
+         width="150" height="150"/>
+  </a>
 </p>
 
