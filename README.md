@@ -1,13 +1,62 @@
 
 <p align="center">
-  <img src="https://capsule-render.vercel.app/api?type=waving&height=200&color=gradient&text=Bienvenu%20sur%20mon%20github&fontAlign=49&textBg=false&fontSize=40&animation=scaleIn&descAlign=49&desc=Je%20suis%20Sylvestre%20HONFO,%20dévelopeur%20web%20et%20mobile(Flutter)&reversal=false&section=header&fontAlignY=26&descAlignY=41"/>
+  <img src="https://capsule-render.vercel.app/api?type=waving&height=200&color=gradient&text=✨Bienvenu%20sur%20mon%20github✨&fontAlign=49&textBg=false&fontSize=40&animation=scaleIn&descAlign=49&desc=Je%20suis%20Sylvestre%20HONFO,%20dévelopeur%20web%20et%20mobile(Flutter)&reversal=false&section=header&fontAlignY=26&descAlignY=41"/>
+  <p align="center">
+  <img src="https://img.shields.io/badge/Localisation-Cotonou%2C%20Bénin-blue" />
+  <img src="https://img.shields.io/badge/Entreprise-Soulber-brightgreen" />
+  <img src="https://img.shields.io/badge/Statut-Ouvert%20aux%20Opportunités-orange" />
 </p>
-<h2> 📬 &nbsp;Me Contacter</h2>
+</p>
+
+##
+<h3 align="center"> 📬 &nbsp;Prenons contact et discutons-en ! </h3>
+
+##
+
+<p align="center">
 <a href="">
   <img height="50" src="https://user-images.githubusercontent.com/46517096/166974368-9798f39f-1f46-499c-b14e-81f0a3f83a06.png"/>
 </a>
+</p>
 
-<h3> 🎓 &nbsp;Mes Quelques Certificats Professionnels</h3>
+---
+
+## 
+<h3 align="center"> 👨‍💻 À propos de moi </h3>
+
+##
+
+```yaml
+nom: "HONFO B. Sylvestre"
+localisation: "Cotonou, Bénin"
+poste_actuel: "Développeur Full Stack"
+formation:
+  - "Développeur et Designer Autodidacte"
+  - "Licence en Informatique"
+entreprise: "Soulber"
+en_cours_d_apprentissage:
+  - "Docker"
+  - "Kubernetes"
+  - "React Native"
+objectifs_2024:
+  - "Créer 25+ projets"
+  - "Apprendre au moins 5 à 10 nouvelles technologies"
+loisirs:
+  - "Gaming"
+  - "Cinéma"
+  - "Skateboard"
+  - "Art"
+  - "Comédie"
+
+
+```
+<hr/>
+
+##
+<h3 align="center"> 🎓 &nbsp;Mes Quelques Certificats Professionnels</h3>
+
+##
+
 <p align="center">
   <a href="https://www.credly.com/badges/9269cc1b-b53f-4260-ae8b-b8b09af47062/public_url" target="_blank">
     <img src="https://github.com/Silisipro/Silisipro/blob/feat-merge/frontenddashboardapp/public/ibm-full-stack-javascript-developer-professional-ce%20(2).png" 
@@ -56,7 +105,13 @@
 </p>
 <hr/>
 
-<h3> 🚀 Quelques outils que j'ai utilisés et dont j'ai tiré des enseignements</h3>
+
+##
+<h3 align="center"> 🚀 Quelques outils que j'ai utilisés et dont j'ai tiré des enseignements</h3>
+
+##
+
+
 
 ![Flutter](https://img.shields.io/badge/Flutter-%2302569B.svg?style=for-the-badge&logo=Flutter&logoColor=white)
 ![Dart](https://img.shields.io/badge/dart-%230175C2.svg?style=for-the-badge&logo=dart&logoColor=white)
