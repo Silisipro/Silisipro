@@ -145,3 +145,12 @@ loisirs:
 ![Figma](https://img.shields.io/badge/figma-%23F24E1E.svg?style=for-the-badge&logo=figma&logoColor=white)
 ![Docker](https://img.shields.io/badge/docker-%230db7ed.svg?style=for-the-badge&logo=docker&logoColor=white)
 ![Kubernetes](https://img.shields.io/badge/kubernetes-%23326ce5.svg?style=for-the-badge&logo=kubernetes&logoColor=white)
+
+<hr/>
+<p align="center">
+  <img src="https://capsule-render.vercel.app/api?type=egg&height=100&color=gradient&section=footer&reversal=false&desc=🌟Merci%20pour%20votre%20visite🙏"/>
+  <p align="center">
+  <img src="https://img.shields.io/badge/A%20Bientôt-🎉-ff69b4" />
+</p>
+</p>
+
